@@ -10,6 +10,7 @@
   --muted: #6c6062;
   --line: #f2d7d4;
   --paper: #fffdfc;
+  --shell-gutter: clamp(14px, 3.2vw, 48px);
 }
 
 * { box-sizing: border-box; }
@@ -30,7 +31,7 @@ img { display: block; max-width: 100%; }
 h1, h2, blockquote { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
 h1, h2, h3, p, blockquote { margin-top: 0; }
 
-.site-shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+.site-shell { width: min(1180px, calc(100% - (var(--shell-gutter) * 2))); margin-inline: auto; }
 .topbar { background: linear-gradient(90deg, #f8e5e4, #fff7f5); color: #624d51; font-size: 12px; }
 .topbar__inner { min-height: 33px; display: flex; align-items: center; justify-content: space-between; }
 .socials, .footer__socials { display: flex; align-items: center; gap: 13px; }
@@ -93,26 +94,26 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .feature + .feature { border-left: 1px solid var(--line); }
 .feature__icon { color: #7d5a61; font-family: Georgia, serif; font-size: 40px; font-weight: 300; line-height: 1; }
 
-.section { padding: 70px 0; }
+.section { padding: clamp(50px, 5vw, 76px) 0; }
 .section-heading { max-width: 790px; margin: 0 auto 34px; text-align: center; }
 .section-heading h2, .about__content h2, .cta h2 { margin-bottom: 12px; font-size: clamp(38px, 4vw, 52px); line-height: 1.08; letter-spacing: -.025em; }
 .services { overflow: hidden; background: linear-gradient(180deg, #fff 0, #fffbfa 100%); }
-.rentals__heading { margin-bottom: 30px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; }
+.rentals__heading { margin-bottom: clamp(24px, 3vw, 34px); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(22px, 4vw, 54px); }
 .rentals__heading > div:first-child { max-width: 760px; }
-.rentals__heading h2 { margin-bottom: 12px; font-size: clamp(38px, 4vw, 52px); line-height: 1.08; letter-spacing: -.025em; }
-.rentals__intro { max-width: 670px; margin: 0; color: var(--muted); font-size: 14px; }
+.rentals__heading h2 { max-width: 20ch; margin-bottom: 12px; font-size: clamp(36px, 4vw, 52px); line-height: 1.07; letter-spacing: -.025em; text-wrap: balance; }
+.rentals__intro { max-width: 68ch; margin: 0; color: var(--muted); font-size: clamp(13px, 1.15vw, 15px); }
 .rental-nav { padding-bottom: 4px; display: flex; gap: 10px; flex: 0 0 auto; }
-.rental-nav button { width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #efc9c7; border-radius: 50%; color: var(--wine); font-size: 22px; cursor: pointer; transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease; }
+.rental-nav button { width: clamp(42px, 3.5vw, 48px); height: clamp(42px, 3.5vw, 48px); display: inline-flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #efc9c7; border-radius: 50%; color: var(--wine); font-size: 22px; cursor: pointer; transition: transform .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease; }
 .rental-nav button:hover { transform: translateY(-2px); background: var(--wine); color: #fff; box-shadow: 0 8px 20px rgba(58,15,25,.16); }
-.rental-track { margin-inline: -4px; padding: 4px 4px 14px; display: flex; gap: 18px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-behavior: smooth; scroll-snap-type: inline mandatory; scrollbar-width: none; }
+.rental-track { --rental-gap: clamp(14px, 1.4vw, 20px); margin-inline: -4px; padding: 4px 4px 16px; display: flex; align-items: stretch; gap: var(--rental-gap); overflow-x: auto; overscroll-behavior-inline: contain; scroll-behavior: smooth; scroll-snap-type: inline mandatory; scroll-padding-inline: 4px; scrollbar-width: none; }
 .rental-track::-webkit-scrollbar { display: none; }
 .rental-track:focus-visible { outline: 2px solid var(--rose); outline-offset: 5px; border-radius: 14px; }
-.rental-card { min-width: calc((100% - 54px) / 4); overflow: hidden; scroll-snap-align: start; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 28px rgba(58,15,25,.045); transition: transform .2s ease, box-shadow .2s ease; }
+.rental-card { min-width: 0; flex: 0 0 calc((100% - (var(--rental-gap) * 3)) / 4); overflow: hidden; display: flex; flex-direction: column; scroll-snap-align: start; background: #fff; border: 1px solid var(--line); border-radius: clamp(13px, 1.2vw, 17px); box-shadow: 0 8px 28px rgba(58,15,25,.045); transition: transform .2s ease, box-shadow .2s ease; }
 .rental-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(58,15,25,.1); }
-.rental-card > img { width: 100%; height: 224px; display: block; object-fit: cover; }
-.rental-card__body { min-height: 212px; padding: 20px 20px 18px; display: flex; flex-direction: column; align-items: flex-start; }
+.rental-card > img { width: 100%; height: auto; aspect-ratio: 4 / 3; display: block; object-fit: cover; }
+.rental-card__body { flex: 1; min-height: 0; padding: clamp(17px, 1.5vw, 21px); display: flex; flex-direction: column; align-items: flex-start; }
 .rental-card__category { margin-bottom: 9px; color: #df858a; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; font-weight: 800; }
-.rental-card h3 { margin-bottom: 8px; font-family: Georgia, serif; font-size: 21px; line-height: 1.15; }
+.rental-card h3 { margin-bottom: 8px; font-family: Georgia, serif; font-size: clamp(19px, 1.55vw, 22px); line-height: 1.15; text-wrap: balance; }
 .rental-card p { margin: 0 0 18px; color: #766b6c; font-size: 12px; line-height: 1.55; }
 .rental-card a { width: 100%; margin-top: auto; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #f3ddda; color: var(--wine); font-size: 12px; font-weight: 800; }
 .rental-card a span { color: var(--rose); font-size: 19px; }
@@ -183,10 +184,11 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .about-main { left: 0; }
   .about-detail { right: 0; }
   .footer__grid { gap: 30px; }
+  .rental-card { flex-basis: calc((100% - (var(--rental-gap) * 2)) / 3); }
 }
 
 @media (max-width: 860px) {
-  .site-shell { width: min(100% - 34px, 760px); }
+  .site-shell { width: min(100% - (var(--shell-gutter) * 2), 760px); }
   .topbar { display: none; }
   .header__inner { height: 84px; gap: 16px; }
   .logo-crop { width: 142px; height: 62px; }
@@ -202,10 +204,9 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .features { margin-top: -10px; padding: 18px 20px; }
   .feature { gap: 10px; font-size: 11px; }
   .feature__icon { font-size: 32px; }
-  .section { padding: 55px 0; }
+  .section { padding: clamp(48px, 7vw, 58px) 0; }
   .section-heading h2, .about__content h2 { font-size: 42px; }
-  .rental-card { min-width: calc((100% - 18px) / 2.2); }
-  .rental-card > img { height: 235px; }
+  .rental-card { flex-basis: calc((100% - var(--rental-gap)) / 2); }
   .about__grid { grid-template-columns: 1fr; }
   .about-collage { width: min(100%, 590px); margin: 0 auto 45px; }
   .about__content { padding: 0 18px; text-align: center; }
@@ -232,11 +233,10 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .feature + .feature { border-left: 0; border-top: 1px solid var(--line); }
   .section-heading { margin-bottom: 26px; }
   .section-heading h2, .about__content h2 { font-size: 37px; }
-  .rentals__heading { align-items: flex-start; gap: 18px; }
-  .rentals__heading h2 { font-size: 37px; }
+  .rentals__heading { align-items: start; gap: 18px; }
+  .rentals__heading h2 { font-size: clamp(34px, 7vw, 40px); }
   .rental-nav button { width: 42px; height: 42px; }
-  .rental-card { min-width: 82%; }
-  .rental-card > img { height: 250px; }
+  .rental-card { flex-basis: 87%; }
   .rentals__hint { display: block; }
   .about-collage { height: 370px; }
   .about-main { width: 58%; height: 315px; }
@@ -258,7 +258,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 }
 
 @media (max-width: 430px) {
-  .site-shell { width: calc(100% - 28px); }
+  .site-shell { width: calc(100% - (var(--shell-gutter) * 2)); }
   .header__inner { height: 76px; }
   .logo-crop { width: 130px; height: 58px; }
   .logo-crop img { width: 142px; top: -74px; }
@@ -269,8 +269,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .rentals__heading { display: block; text-align: center; }
   .rentals__intro { margin-inline: auto; }
   .rental-nav { margin-top: 18px; justify-content: center; }
-  .rental-card { min-width: 88%; }
-  .rental-card__body { min-height: 200px; }
+  .rental-card__body { padding: 17px; }
   .gallery { grid-template-columns: 1fr; }
   .gallery .prototype-photo { min-height: 190px; }
   .about-collage { height: 330px; }

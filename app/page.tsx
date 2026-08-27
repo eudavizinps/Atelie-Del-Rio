@@ -239,7 +239,7 @@ export default function Home() {
           <div className="gallery">
             {visiblePortfolio.map(([crop, label]) => <Photo crop={crop} label={label} key={crop} />)}
           </div>
-          <div className="portfolio__footer"><a className="button button--wine" href="#contato">Ver portfólio completo</a></div>
+          <div className="portfolio__footer"><a className="button button--wine" href="#contato">Solicite seu orçamento</a></div>
         </div>
       </section>
 

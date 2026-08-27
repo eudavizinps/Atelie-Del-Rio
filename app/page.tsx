@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 
-const whatsapp = "https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento.";
+const whatsappNumber = "5511999999999";
+const whatsapp = `https://wa.me/${whatsappNumber}?text=Ol%C3%A1%2C%20quero%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento.`;
 
 type PhotoProps = {
   crop: string;
@@ -28,24 +29,54 @@ function Logo({ compact = false }: { compact?: boolean }) {
   );
 }
 
-const services = [
+const rentalProducts = [
   {
-    title: "Decoração de eventos",
-    text: "Cenários pensados para encantar",
-    crop: "service-decoration",
-    label: "Salão decorado para celebração",
+    name: "Castiçais e porta-velas",
+    category: "Iluminação decorativa",
+    description: "Composições em vidro para mesas acolhedoras e sofisticadas.",
+    image: "/products/casticais.jpg",
   },
   {
-    title: "Locação de peças",
-    text: "Mobiliário, louças e itens decorativos",
-    crop: "service-rental",
-    label: "Mesa posta com peças selecionadas",
+    name: "Arco floral para cerimônia",
+    category: "Estruturas",
+    description: "Estrutura marcante para altares, entradas e cenários fotográficos.",
+    image: "/products/arco-floral.jpg",
   },
   {
-    title: "Buffet",
-    text: "Sabores e apresentações memoráveis",
-    crop: "service-buffet",
-    label: "Buffet cuidadosamente apresentado",
+    name: "Taças de cristal",
+    category: "Mesa posta",
+    description: "Modelos delicados para brindar ocasiões verdadeiramente especiais.",
+    image: "/products/loucas-tacas.jpg",
+  },
+  {
+    name: "Suportes para doces",
+    category: "Festas",
+    description: "Boleiras e bandejas para valorizar doces, bolos e lembranças.",
+    image: "/products/suportes-doces.jpg",
+  },
+  {
+    name: "Sousplats em fibra natural",
+    category: "Mesa posta",
+    description: "Texturas naturais para propostas rústicas, leves e elegantes.",
+    image: "/products/mesa-rustica.jpg",
+  },
+  {
+    name: "Vasos para arranjos",
+    category: "Decorativos",
+    description: "Vasos transparentes em diferentes alturas para composições florais.",
+    image: "/products/vasos-decorativos.jpg",
+  },
+  {
+    name: "Cilindros de vidro",
+    category: "Iluminação decorativa",
+    description: "Peças versáteis para velas, flores e centros de mesa.",
+    image: "/products/cilindros-vidro.jpg",
+  },
+  {
+    name: "Kit mesa posta completa",
+    category: "Louças e acessórios",
+    description: "Pratos, taças e acessórios selecionados para uma mesa harmoniosa.",
+    image: "/products/mesa-posta.jpg",
   },
 ];
 
@@ -67,7 +98,14 @@ const steps = [
 
 export default function Home() {
   const [portfolioFilter, setPortfolioFilter] = useState("Todos");
+  const rentalTrackRef = useRef<HTMLDivElement>(null);
   const visiblePortfolio = portfolio.filter(([, , category]) => portfolioFilter === "Todos" || category === portfolioFilter);
+
+  function scrollRentals(direction: -1 | 1) {
+    const track = rentalTrackRef.current;
+    if (!track) return;
+    track.scrollBy({ left: direction * Math.min(track.clientWidth * 0.86, 980), behavior: "smooth" });
+  }
 
   return (
     <main>
@@ -129,20 +167,37 @@ export default function Home() {
 
       <section className="section services" id="servicos">
         <div className="site-shell">
-          <div className="section-heading">
-            <p className="eyebrow">Nossas soluções</p>
-            <h2>Tudo para transformar seu evento</h2>
+          <div className="rentals__heading">
+            <div>
+              <p className="eyebrow">Acervo para locação</p>
+              <h2>Peças que transformam cada cenário</h2>
+              <p className="rentals__intro">Explore alguns itens do nosso acervo. Gostou de uma peça? Solicite a disponibilidade e o orçamento diretamente pelo WhatsApp.</p>
+            </div>
+            <div className="rental-nav" aria-label="Controles do carrossel">
+              <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>
+              <button type="button" onClick={() => scrollRentals(1)} aria-label="Ver próximos produtos">→</button>
+            </div>
           </div>
-          <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.title}>
-                <Photo crop={service.crop} label={service.label} />
-                <div className="service-card__body">
-                  <div><h3>{service.title}</h3><p>{service.text}</p></div>
-                  <a href="#contato" aria-label={`Solicitar ${service.title}`}>→</a>
-                </div>
-              </article>
-            ))}
+          <div className="rental-carousel">
+            <div className="rental-track" ref={rentalTrackRef} tabIndex={0} aria-label="Produtos disponíveis para locação">
+              {rentalProducts.map((product) => {
+                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de solicitar disponibilidade e orçamento para locação de: ${product.name}.`)}`;
+                return (
+                  <article className="rental-card" key={product.name}>
+                    <img src={product.image} alt={`${product.name} em composição de evento`} loading="lazy" />
+                    <div className="rental-card__body">
+                      <span className="rental-card__category">{product.category}</span>
+                      <h3>{product.name}</h3>
+                      <p>{product.description}</p>
+                      <a href={quoteLink} target="_blank" rel="noreferrer" aria-label={`Solicitar orçamento de ${product.name} pelo WhatsApp`}>
+                        Solicitar orçamento <span aria-hidden="true">↗</span>
+                      </a>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+            <p className="rentals__hint">Deslize para conhecer mais peças <span aria-hidden="true">→</span></p>
           </div>
         </div>
       </section>

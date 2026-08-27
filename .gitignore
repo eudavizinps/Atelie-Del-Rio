@@ -40,3 +40,5 @@ yarn-error.log*
 /work/
 /.pnpm-store/
 /screenshots/
+/site-html/
+/netlify-upload/

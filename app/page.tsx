@@ -127,7 +127,7 @@ export default function Home() {
             <div>
               <p className="eyebrow">Acervo para locação</p>
               <h2>Peças que transformam cada cenário</h2>
-              <p className="rentals__intro">Explore as peças reais do nosso acervo. Gostou de alguma? Consulte a disponibilidade pelo WhatsApp.</p>
+              <p className="rentals__intro">Explore o acervo e consulte a disponibilidade de cada peça pelo WhatsApp.</p>
             </div>
             <div className="rental-nav" aria-label="Controles do carrossel">
               <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>

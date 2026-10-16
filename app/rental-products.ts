@@ -1,7 +1,7 @@
 export const rentalCategories = [
   "Bonecos e Pelúcias",
   "Decorações",
-  "Mesas e Suportes",
+  "Mesas e Decorativos",
   "Painéis e Cômodas",
 ] as const;
 
@@ -64,6 +64,31 @@ const decorations: [number, string][] = [
   [6334, "Decoração de aniversário com balões e luzes"],
 ];
 
+const tablesAndDecor: [number, string][] = [
+  [3916, "Dupla de mesas redondas com tampos de madeira"],
+  [3915, "Mesas redondas com estrutura preta"],
+  [3913, "Mesas redondas rústicas"],
+  [3909, "Mesa retangular de madeira rústica"],
+  [3906, "Mesa baixa de madeira rústica"],
+  [3894, "Módulo decorativo em formato de roda"],
+  [3892, "Painel decorativo em arcos coloridos"],
+  [3891, "Painel brilhante para festas"],
+  [3885, "Trio de mesas redondas cor-de-rosa"],
+  [3884, "Mesas metálicas com tampos de madeira"],
+  [3882, "Conjunto de mesas metálicas douradas"],
+  [3880, "Mesas orgânicas em tons pastel"],
+  [3879, "Composição de mesas orgânicas e arco"],
+  [3877, "Trio de suportes brancos com tampos de madeira"],
+  [3876, "Suportes aramados decorativos"],
+  [3874, "Cubos decorativos em formato de dados"],
+  [3872, "Painel temático esportivo"],
+  [3871, "Módulos ripados em tons pastel"],
+  [3867, "Cômoda decorativa cor-de-rosa"],
+  [3866, "Painel decorativo em formato de jipe"],
+  [3863, "Mesas aramadas com tampos coloridos"],
+  [3862, "Trio de mesas aramadas coloridas"],
+];
+
 export const rentalProducts: RentalProduct[] = [
   ...dollsAndPlushies.map(([id, name]) => ({
     id,
@@ -76,5 +101,11 @@ export const rentalProducts: RentalProduct[] = [
     name,
     category: "Decorações" as const,
     image: `/products/decoracoes/img-${id}.webp`,
+  })),
+  ...tablesAndDecor.map(([id, name]) => ({
+    id,
+    name,
+    category: "Mesas e Decorativos" as const,
+    image: `/products/mesas-decorativos/img-${id}.webp`,
   })),
 ];

@@ -110,8 +110,7 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 Os itens e as quatro categorias do carrossel estão em `app/rental-products.ts`.
 As fotos de Bonecos e Pelúcias ficam em `public/products/bonecos-pelucias/`;
-o número do arquivo é a referência exibida no card e enviada na mensagem de
-consulta do WhatsApp. As demais categorias ficam indisponíveis até receberem
+o número do arquivo é usado apenas para identificar a foto no código. As demais categorias ficam indisponíveis até receberem
 fotos reais. O número do WhatsApp em `app/page.tsx` ainda é provisório.
 
 ## Useful Commands

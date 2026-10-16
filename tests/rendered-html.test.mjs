@@ -35,7 +35,8 @@ test("catálogo de bonecos e pelúcias mostra as fotos reais sem preços", async
   assert.match(html, /class="rental-track"/);
   assert.match(html, /Bonecos e Pelúcias/);
   assert.match(html, /img-4334\.webp/);
-  assert.match(html, /referência 4334, pelo WhatsApp/);
+  assert.match(html, /Consulte a disponibilidade/);
+  assert.doesNotMatch(html, /Ref\.\s*(?:<!-- -->)?4334|referência 4334|ref\.%204334/i);
   assert.match(html, /wa\.me\/5511999999999\?text=/);
   assert.doesNotMatch(html, /R\$\s*\d|preço|valor do item/i);
 });

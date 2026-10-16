@@ -128,7 +128,7 @@ export default function Home() {
             <div>
               <p className="eyebrow">Acervo para locação</p>
               <h2>Peças que transformam cada cenário</h2>
-              <p className="rentals__intro">Explore as peças reais do nosso acervo. Gostou de alguma? Anote a referência e consulte a disponibilidade pelo WhatsApp.</p>
+              <p className="rentals__intro">Explore as peças reais do nosso acervo. Gostou de alguma? Consulte a disponibilidade pelo WhatsApp.</p>
             </div>
             <div className="rental-nav" aria-label="Controles do carrossel">
               <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>
@@ -155,15 +155,15 @@ export default function Home() {
           <div className="rental-carousel">
             <div className="rental-track" ref={rentalTrackRef} aria-label="Produtos disponíveis para locação">
               {visibleRentals.map((product) => {
-                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e o valor de locação de ${product.name} (ref. ${product.id}).`)}`;
+                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e o valor de locação de ${product.name}.`)}`;
                 return (
                   <article className="rental-card" key={product.id}>
                     <img src={product.image} alt={product.name} loading="lazy" />
                     <div className="rental-card__body">
                       <span className="rental-card__category">{product.category}</span>
                       <h3>{product.name}</h3>
-                      <p>Ref. {product.id} · Consulte a disponibilidade</p>
-                      <a href={quoteLink} target="_blank" rel="noreferrer" aria-label={`Consultar ${product.name}, referência ${product.id}, pelo WhatsApp`}>
+                      <p>Consulte a disponibilidade</p>
+                      <a href={quoteLink} target="_blank" rel="noreferrer" aria-label={`Consultar ${product.name} pelo WhatsApp`}>
                         Consultar pelo WhatsApp <span aria-hidden="true">↗</span>
                       </a>
                     </div>

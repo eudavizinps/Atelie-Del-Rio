@@ -25,16 +25,20 @@ test("renderiza o site completo do Ateliê Del Rio", async () => {
   assert.match(html, /Ateliê Del Rio/);
 });
 
-test("catálogo de bonecos e pelúcias mostra as fotos reais sem preços", async () => {
+test("catálogo de locações mostra as fotos reais sem preços", async () => {
   const html = await (await render()).text();
   const cards = html.match(/class="rental-card"/g) ?? [];
   const productLinks = html.match(/aria-label="Consultar [^"]+ pelo WhatsApp"/g) ?? [];
 
-  assert.equal(cards.length, 41);
-  assert.equal(productLinks.length, 41);
+  assert.equal(cards.length, 44);
+  assert.equal(productLinks.length, 44);
   assert.match(html, /class="rental-track"/);
   assert.match(html, /Bonecos e Pelúcias/);
   assert.match(html, /img-4334\.webp/);
+  assert.match(html, /img-6336\.webp/);
+  assert.match(html, /img-6335\.webp/);
+  assert.match(html, /img-6334\.webp/);
+  assert.match(html, /Decoração temática com personagens/);
   assert.match(html, /Consulte a disponibilidade/);
   assert.doesNotMatch(html, /Ref\.\s*(?:<!-- -->)?4334|referência 4334|ref\.%204334/i);
   assert.match(html, /wa\.me\/5511999999999\?text=/);

@@ -58,9 +58,23 @@ const dollsAndPlushies: [number, string][] = [
   [4242, "Vaquinha de pelúcia"],
 ];
 
-export const rentalProducts: RentalProduct[] = dollsAndPlushies.map(([id, name]) => ({
-  id,
-  name,
-  category: "Bonecos e Pelúcias",
-  image: `/products/bonecos-pelucias/img-${id}.webp`,
-}));
+const decorations: [number, string][] = [
+  [6336, "Decoração infantil com balões coloridos"],
+  [6335, "Decoração temática com personagens"],
+  [6334, "Decoração de aniversário com balões e luzes"],
+];
+
+export const rentalProducts: RentalProduct[] = [
+  ...dollsAndPlushies.map(([id, name]) => ({
+    id,
+    name,
+    category: "Bonecos e Pelúcias" as const,
+    image: `/products/bonecos-pelucias/img-${id}.webp`,
+  })),
+  ...decorations.map(([id, name]) => ({
+    id,
+    name,
+    category: "Decorações" as const,
+    image: `/products/decoracoes/img-${id}.webp`,
+  })),
+];

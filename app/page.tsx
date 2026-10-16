@@ -155,7 +155,7 @@ export default function Home() {
           <div className="rental-carousel">
             <div className="rental-track" ref={rentalTrackRef} aria-label="Produtos disponíveis para locação">
               {visibleRentals.map((product) => {
-                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e o valor de locação de ${product.name}.`)}`;
+                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e solicitar um orçamento para: ${product.name}.`)}`;
                 return (
                   <article className="rental-card" key={product.id}>
                     <img src={product.image} alt={product.name} loading="lazy" />

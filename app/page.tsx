@@ -78,9 +78,9 @@ type Testimonial = { quote: string; author: string; event: string };
 
 const testimonials: Testimonial[] = [
   {
-    quote: "O Ateliê Del Rio transformou nosso sonho em uma celebração ainda mais bonita do que imaginávamos.",
-    author: "Mariana & Rafael",
-    event: "Casamento",
+    quote: "Marlene, querida! Recebi as fotos oficiais do Chá da Clara. Você, como sempre, se superando. Sonhei com esse evento bem intimista, apenas para a família e, você conseguiu transformá-lo, com o seu capricho e dedicação, em um momento mágico e uma recordação inesquecível para a nossa família. Muito Obrigada!",
+    author: "Carla",
+    event: "Buffet 23/08",
   },
 ];
 

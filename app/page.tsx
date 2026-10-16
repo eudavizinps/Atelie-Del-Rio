@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { rentalCategories, rentalProducts, type RentalCategory } from "./rental-products";
 
 const whatsappNumber = "5521988742550";
@@ -46,12 +46,35 @@ const steps = [
   ["04", "♧", "Celebramos com você", "No grande dia, é só aproveitar cada momento."],
 ];
 
+type Testimonial = { quote: string; author: string; event: string };
+
+const testimonials: Testimonial[] = [
+  {
+    quote: "O Ateliê Del Rio transformou nosso sonho em uma celebração ainda mais bonita do que imaginávamos.",
+    author: "Mariana & Rafael",
+    event: "Casamento",
+  },
+];
+
 export default function Home() {
   const [portfolioFilter, setPortfolioFilter] = useState("Todos");
   const [rentalFilter, setRentalFilter] = useState<"Todos" | RentalCategory>("Todos");
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [testimonialPaused, setTestimonialPaused] = useState(false);
   const rentalTrackRef = useRef<HTMLDivElement>(null);
   const visiblePortfolio = portfolio.filter(([, , category]) => portfolioFilter === "Todos" || category === portfolioFilter);
   const visibleRentals = rentalProducts.filter((product) => rentalFilter === "Todos" || product.category === rentalFilter);
+  const activeTestimonial = testimonials[testimonialIndex];
+
+  useEffect(() => {
+    if (testimonials.length < 2 || testimonialPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const interval = window.setInterval(() => {
+      if (!document.hidden) setTestimonialIndex((index) => (index + 1) % testimonials.length);
+    }, 6000);
+
+    return () => window.clearInterval(interval);
+  }, [testimonialPaused]);
 
   function filterRentals(category: "Todos" | RentalCategory) {
     setRentalFilter(category);
@@ -231,12 +254,31 @@ export default function Home() {
       </section>
 
       <section className="testimonial-section" id="depoimentos">
-        <div className="site-shell testimonial">
-          <span className="testimonial__quote">“</span>
-          <blockquote>O Ateliê Del Rio transformou nosso sonho em uma celebração ainda mais bonita do que imaginávamos.</blockquote>
-          <p className="testimonial__author">Mariana & Rafael</p>
-          <span className="testimonial__event">Casamento</span>
-          <div className="testimonial__dots" aria-hidden="true"><b /><i /><i /><i /><i /></div>
+        <div
+          className="site-shell testimonial"
+          onMouseEnter={() => setTestimonialPaused(true)}
+          onMouseLeave={() => setTestimonialPaused(false)}
+          onFocusCapture={() => setTestimonialPaused(true)}
+          onBlurCapture={() => setTestimonialPaused(false)}
+        >
+          <span className="testimonial__quote" aria-hidden="true">“</span>
+          <blockquote>{activeTestimonial.quote}</blockquote>
+          <p className="testimonial__author">{activeTestimonial.author}</p>
+          <span className="testimonial__event">{activeTestimonial.event}</span>
+          {testimonials.length > 1 && (
+            <div className="testimonial__dots" role="group" aria-label="Navegar pelos depoimentos">
+              {testimonials.map((testimonial, index) => (
+                <button
+                  type="button"
+                  key={`${testimonial.author}-${index}`}
+                  className={index === testimonialIndex ? "active" : ""}
+                  aria-label={`Mostrar depoimento ${index + 1} de ${testimonial.author}`}
+                  aria-pressed={index === testimonialIndex}
+                  onClick={() => setTestimonialIndex(index)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

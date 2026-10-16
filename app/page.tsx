@@ -82,6 +82,11 @@ const testimonials: Testimonial[] = [
     author: "Carla",
     event: "Buffet 23/08",
   },
+  {
+    quote: "Ficou tudo lindo! A comida uma delícia! Todo mundo amou!!! Obrigada mais uma vez!",
+    author: "Ana",
+    event: "Buffet 10/10",
+  },
 ];
 
 export default function Home() {

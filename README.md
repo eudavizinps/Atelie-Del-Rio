@@ -5,17 +5,14 @@
 Este projeto usa Vinext com o Cloudflare Vite Plugin. O build gera o Worker em
 `dist/server` e os arquivos estáticos em `dist/client`.
 
-No painel **Workers & Pages**, conecte o repositório GitHub
-`eudavizinps/Atelie-Del-Rio` a um Worker chamado `atelie-del-rio` e configure:
+O workflow `.github/workflows/deploy-cloudflare.yml` testa, compila e publica
+no Cloudflare Workers a cada push em `main`. Configure estes segredos no GitHub
+Actions do repositório: `CLOUDFLARE_API_TOKEN` (token de usuário Cloudflare com
+permissão de edição de Workers na conta) e `CLOUDFLARE_ACCOUNT_ID`.
 
-- Branch de produção: `main`
-- Diretório raiz: raiz do repositório
-- Comando de build: `npm run build`
-- Comando de deploy: `npm run deploy`
-
-Cada push em `main` inicia um novo build e deploy. Para verificar o pacote sem
-publicar, execute `npm run deploy:check`. O deploy não precisa de D1 ou R2 na
-versão atual do site. Não inclua tokens ou credenciais no repositório.
+Para verificar o pacote sem publicar, execute `npm run deploy:check`. O deploy
+não precisa de D1 ou R2 na versão atual do site. Não inclua tokens ou
+credenciais no repositório.
 
 Antes de divulgar o endereço, substitua o número de WhatsApp, os links sociais
 e os demais dados de exemplo em `app/page.tsx`.

@@ -127,7 +127,6 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .rental-card > img { width: 100%; height: clamp(150px, 13.5vw, 170px); display: block; object-fit: contain; background: #f8f7f6; }
 .rental-card__body { flex: 1; min-height: 0; padding: 12px; display: flex; flex-direction: column; align-items: flex-start; }
 .rental-card__category { margin-bottom: 4px; color: #df858a; text-transform: uppercase; letter-spacing: .06em; font-size: 10px; font-weight: 800; }
-.rental-card h3 { margin-bottom: 4px; font-family: Georgia, serif; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.16; text-wrap: balance; }
 .rental-card p { margin: 0 0 6px; color: #766b6c; font-size: 12px; line-height: 1.4; }
 .rental-card a { width: 100%; margin-top: auto; padding-top: 8px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #f3ddda; color: var(--wine); font-size: 12px; font-weight: 800; }
 .rental-card a span { color: var(--rose); font-size: 17px; }

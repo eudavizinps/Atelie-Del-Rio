@@ -358,7 +358,6 @@ export default function Home() {
                     <img src={product.image} alt={product.name} loading="lazy" draggable={false} />
                     <div className="rental-card__body">
                       <span className="rental-card__category">{product.category}</span>
-                      <h3>{product.name}</h3>
                       <p>Consulte a disponibilidade</p>
                       <a href={quoteLink} target="_blank" rel="noreferrer" aria-label={`Consultar ${product.name} pelo WhatsApp`}>
                         Consultar pelo WhatsApp <span aria-hidden="true">↗</span>

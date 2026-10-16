@@ -14,8 +14,8 @@ Para verificar o pacote sem publicar, execute `npm run deploy:check`. O deploy
 não precisa de D1 ou R2 na versão atual do site. Não inclua tokens ou
 credenciais no repositório.
 
-Antes de divulgar o endereço, substitua o número de WhatsApp, os links sociais
-e os demais dados de exemplo em `app/page.tsx`.
+Antes de divulgar o site, confira os links sociais e os demais dados de exemplo
+em `app/page.tsx`.
 
 ## Base técnica
 
@@ -113,8 +113,8 @@ As fotos de Bonecos e Pelúcias ficam em `public/products/bonecos-pelucias/`,
 as de Decorações em `public/products/decoracoes/`, as de Mesas e Decorativos em
 `public/products/mesas-decorativos/` e as de Painéis e Cômodas em
 `public/products/paineis-comodas/`. O número do arquivo é usado apenas para
-identificar a foto no código. O número do WhatsApp em `app/page.tsx` ainda é
-provisório.
+identificar a foto no código. O número do WhatsApp e o endereço da loja ficam
+em `app/page.tsx`.
 
 ## Useful Commands
 

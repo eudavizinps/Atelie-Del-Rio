@@ -48,6 +48,10 @@ test("catálogo de locações mostra as fotos reais sem preços", async () => {
   assert.match(html, /Decoração temática com personagens/);
   assert.match(html, /Consulte a disponibilidade/);
   assert.doesNotMatch(html, /Ref\.\s*(?:<!-- -->)?4334|referência 4334|ref\.%204334/i);
-  assert.match(html, /wa\.me\/5511999999999\?text=/);
+  assert.match(html, /wa\.me\/5521988742550\?text=/);
+  assert.match(html, /href="tel:\+5521988742550"/);
+  assert.match(html, /\(21\) 98874-2550/);
+  assert.match(html, /Rua Franz Listz, 218 - Jardim América, RJ/);
+  assert.doesNotMatch(html, /5511999999999|\(11\) 99999-9999|São Paulo – SP/);
   assert.doesNotMatch(html, /R\$\s*\d|preço|valor do item/i);
 });

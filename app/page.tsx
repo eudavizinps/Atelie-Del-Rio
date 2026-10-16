@@ -3,7 +3,7 @@
 import { useRef, useState, type CSSProperties } from "react";
 import { rentalCategories, rentalProducts, type RentalCategory } from "./rental-products";
 
-const whatsappNumber = "5511999999999";
+const whatsappNumber = "5521988742550";
 const whatsapp = `https://wa.me/${whatsappNumber}?text=Ol%C3%A1%2C%20quero%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento.`;
 
 type PhotoProps = {
@@ -258,7 +258,7 @@ export default function Home() {
           </div>
           <div><h3>Navegação</h3><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#depoimentos">Depoimentos</a><a href="#contato">Contato</a></div>
           <div><h3>Serviços</h3><span>Decoração de eventos</span><span>Locação de peças</span><span>Buffet</span><span>Assessoria completa</span><span>Eventos corporativos</span><span>Mini weddings</span></div>
-          <div><h3>Contato</h3><a href="tel:+5511999999999">☎ &nbsp;(11) 99999-9999</a><a href="mailto:contato@ateliedelrio.com.br">✉ &nbsp;contato@ateliedelrio.com.br</a><span>⌖ &nbsp;São Paulo – SP</span><span>◷ &nbsp;Atendimento: Seg a Sex, 9h às 18h</span></div>
+          <div><h3>Contato</h3><a href={`tel:+${whatsappNumber}`}>☎ &nbsp;(21) 98874-2550</a><a href="mailto:contato@ateliedelrio.com.br">✉ &nbsp;contato@ateliedelrio.com.br</a><span>⌖ &nbsp;Rua Franz Listz, 218 - Jardim América, RJ</span><span>◷ &nbsp;Atendimento: Seg a Sex, 9h às 18h</span></div>
         </div>
         <div className="site-shell footer__bottom">© 2026 Ateliê Del Rio. Todos os direitos reservados.</div>
       </footer>

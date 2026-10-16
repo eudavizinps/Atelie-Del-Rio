@@ -80,8 +80,6 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .service-decoration { background-position: 7.8% 32.5%; }
 .service-rental { background-position: 50.1% 32.5%; }
 .service-buffet { background-position: 92.2% 32.5%; }
-.about-main { background-size: 414.2% auto; background-position: 8.5% 44.9%; }
-.about-detail { background-size: 522.8% auto; background-position: 34.1% 46.6%; }
 .gallery .prototype-photo { min-height: 194px; border-radius: 9px; background-size: 347.7% auto; }
 .gallery-1 { background-position: 7.8% 61.6%; }
 .gallery-2 { background-position: 50% 61.6%; }
@@ -130,15 +128,12 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .rentals__hint { display: none; margin: 8px 0 0; color: #9a7d80; font-size: 11px; text-align: center; }
 
 .about { padding-top: 30px; }
-.about__grid { min-height: 385px; display: grid; grid-template-columns: minmax(0, 48%) minmax(0, 52%); align-items: center; }
-.about-collage { height: 360px; position: relative; }
-.about-collage__accent { width: 230px; height: 130px; position: absolute; left: 4px; bottom: 28px; border-radius: 18px; background: linear-gradient(135deg, #f7b8b8, #fce2df); }
-.about-main { width: 53%; height: 88%; position: absolute; left: 6%; top: 2%; border-radius: 12px; box-shadow: 0 12px 35px rgba(61,30,35,.10); }
-.about-detail { width: 47%; height: 78%; position: absolute; right: 3%; bottom: 0; border: 5px solid #fff; border-radius: 14px; box-shadow: 0 12px 35px rgba(61,30,35,.10); }
-.about__content { padding: 0 clamp(20px, 3vw, 40px); }
+.about__grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; gap: clamp(24px, 3vw, 48px); }
+.about__portrait { width: min(100%, 340px); margin: 0 auto; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 18px; box-shadow: 0 16px 40px rgba(61,30,35,.12); }
+.about__portrait img { width: 100%; height: 100%; object-fit: cover; }
+.about__content { padding: 0; }
 .about__content p:not(.eyebrow) { max-width: 610px; margin-bottom: 18px; color: var(--muted); font-size: 14px; }
 .signature { margin: 10px 0 18px; color: #f0aaa9; font-family: "Segoe Script", "Brush Script MT", cursive; font-size: 38px; transform: rotate(-3deg); }
-.about__content .button { min-height: 38px; padding-inline: 22px; font-size: 12px; }
 
 .portfolio { padding-top: 48px; background: linear-gradient(180deg, #fff6f4 0, #fffafa 55%, #fff 100%); }
 .portfolio__filters { margin-top: 20px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px; }
@@ -193,7 +188,6 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .hero__grid { grid-template-columns: minmax(0, 46%) minmax(0, 54%); }
   .hero__content { padding-left: 0; }
   .hero h1 { font-size: clamp(40px, 4.6vw, 48px); }
-  .about__content { padding-right: 0; }
   .footer__grid { gap: 22px; }
   .rental-card { flex-basis: calc((100% - (var(--rental-gap) * 3)) / 4); }
 }
@@ -224,7 +218,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .rental-card { flex-basis: calc((100% - var(--rental-gap)) / 2); }
   .rental-card > img { height: 190px; }
   .about__grid { grid-template-columns: 1fr; }
-  .about-collage { width: min(100%, 550px); margin: 0 auto 28px; }
+  .about__portrait { width: min(100%, 320px); }
   .about__content { padding: 0 18px; text-align: center; }
   .about__content p:not(.eyebrow) { margin-inline: auto; }
   .process__grid { grid-template-columns: repeat(2, 1fr); gap: 26px 0; }
@@ -264,10 +258,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .rental-card { flex-basis: min(85%, 340px); }
   .rental-card > img { height: 190px; }
   .rentals__hint { display: block; }
-  .about__grid { min-height: 0; }
-  .about-collage { height: 270px; margin-bottom: 22px; }
-  .about-main { width: 56%; height: 90%; }
-  .about-detail { width: 45%; height: 79%; }
+  .about__portrait { width: min(78vw, 290px); }
   .about__content { padding-inline: 0; }
   .signature { font-size: 32px; }
   .gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -307,7 +298,6 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .rental-nav { margin-top: 14px; justify-content: center; }
   .rental-card__body { padding: 14px; }
   .gallery .prototype-photo { min-height: 125px; }
-  .about-collage { height: 250px; }
   .portfolio__filters button { min-width: calc(50% - 9px); }
 }
 

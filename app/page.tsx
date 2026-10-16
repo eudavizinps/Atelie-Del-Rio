@@ -233,17 +233,14 @@ export default function Home() {
 
       <section className="section about" id="sobre">
         <div className="site-shell about__grid">
-          <div className="about-collage" aria-label="Detalhes do trabalho do Ateliê Del Rio">
-            <div className="about-collage__accent" />
-            <Photo crop="about-main" label="Profissional montando arranjo floral" />
-            <Photo crop="about-detail" label="Mesa posta em ambiente ao ar livre" />
-          </div>
+          <figure className="about__portrait">
+            <img src="/marlene-del-rio.jpg" alt="Marlene Del Rio, dona do Ateliê Del Rio" width="1122" height="1402" loading="lazy" />
+          </figure>
           <div className="about__content">
             <p className="eyebrow">Sobre o ateliê</p>
             <h2>Cada celebração merece uma identidade única.</h2>
             <p>Acreditamos que cada evento é único e merece ser vivido com emoção e beleza. Por isso, ouvimos, planejamos e criamos projetos personalizados, com curadoria de peças selecionadas, decoração autoral e um buffet que encanta todos os sentidos.</p>
             <div className="signature">Ateliê Del Rio</div>
-            <a className="button button--wine" href="#contato">Conheça nossa história</a>
           </div>
         </div>
       </section>

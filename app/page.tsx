@@ -5,6 +5,7 @@ import { rentalCategories, rentalProducts, type RentalCategory } from "./rental-
 
 const whatsappNumber = "5521988742550";
 const whatsapp = `https://wa.me/${whatsappNumber}?text=Ol%C3%A1%2C%20quero%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento.`;
+const instagramProfile = "https://www.instagram.com/ateliedelrio_/";
 
 type PhotoProps = {
   crop: string;
@@ -125,7 +126,7 @@ export default function Home() {
         <div className="site-shell topbar__inner">
           <span>Atendimento personalizado para o seu evento</span>
           <div className="socials" aria-label="Redes sociais">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
+            <a href={instagramProfile} target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
             <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a>
           </div>
         </div>
@@ -328,7 +329,7 @@ export default function Home() {
             <Logo compact />
             <p>Decorações autorais, locações selecionadas e buffet impecável para eventos que ficam na memória.</p>
             <div className="footer__socials">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
+              <a href={instagramProfile} target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
               <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a>
               <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook"><SocialIcon name="facebook" /></a>
             </div>

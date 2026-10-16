@@ -179,7 +179,7 @@ export default function Home() {
             </div>
           </div>
           <div className="rental-carousel">
-            <div className="rental-track" ref={rentalTrackRef} tabIndex={0} aria-label="Produtos disponíveis para locação">
+            <div className="rental-track" ref={rentalTrackRef} aria-label="Produtos disponíveis para locação">
               {rentalProducts.map((product) => {
                 const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de solicitar disponibilidade e orçamento para locação de: ${product.name}.`)}`;
                 return (

@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: "Ateliê Del Rio | Decorações, Locações & Buffet",
-    description: "Eventos únicos com decoração autoral, locações selecionadas e buffet memorável em São Paulo.",
+    description: "Eventos únicos com decoração autoral, locações selecionadas e buffet memorável no Rio de Janeiro.",
     icons: { icon: "/logo-original.jpeg", shortcut: "/logo-original.jpeg" },
     openGraph: {
       title: "Ateliê Del Rio | Decorações, Locações & Buffet",

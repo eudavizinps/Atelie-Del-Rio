@@ -111,7 +111,6 @@ export default function Home() {
           </div>
           <Photo crop="hero-photo" label="Mesa de celebração sofisticada com flores e velas" />
         </div>
-        <div className="hero__blush" />
       </section>
 
       <section className="features-wrap" aria-label="Diferenciais">

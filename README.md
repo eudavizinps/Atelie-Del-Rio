@@ -106,11 +106,19 @@ or enforce explicit server-side membership or allowlist checks.
 Use SIWC for account pages, user-specific dashboards, saved records, and write
 actions tied to the current ChatGPT user. Leave public content anonymous.
 
+## Catálogo de locações
+
+Os itens e as quatro categorias do carrossel estão em `app/rental-products.ts`.
+As fotos de Bonecos e Pelúcias ficam em `public/products/bonecos-pelucias/`;
+o número do arquivo é a referência exibida no card e enviada na mensagem de
+consulta do WhatsApp. As demais categorias ficam indisponíveis até receberem
+fotos reais. O número do WhatsApp em `app/page.tsx` ainda é provisório.
+
 ## Useful Commands
 
 - `npm run dev`: start local development
 - `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
+- `npm test`: build the site and verify its rendered catalogue
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
 ## Learn More

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type CSSProperties } from "react";
+import { rentalCategories, rentalProducts, type RentalCategory } from "./rental-products";
 
 const whatsappNumber = "5511999999999";
 const whatsapp = `https://wa.me/${whatsappNumber}?text=Ol%C3%A1%2C%20quero%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento.`;
@@ -29,57 +30,6 @@ function Logo({ compact = false }: { compact?: boolean }) {
   );
 }
 
-const rentalProducts = [
-  {
-    name: "Castiçais e porta-velas",
-    category: "Iluminação decorativa",
-    description: "Composições em vidro para mesas acolhedoras e sofisticadas.",
-    image: "/products/casticais.jpg",
-  },
-  {
-    name: "Arco floral para cerimônia",
-    category: "Estruturas",
-    description: "Estrutura marcante para altares, entradas e cenários fotográficos.",
-    image: "/products/arco-floral.jpg",
-  },
-  {
-    name: "Taças de cristal",
-    category: "Mesa posta",
-    description: "Modelos delicados para brindar ocasiões verdadeiramente especiais.",
-    image: "/products/loucas-tacas.jpg",
-  },
-  {
-    name: "Suportes para doces",
-    category: "Festas",
-    description: "Boleiras e bandejas para valorizar doces, bolos e lembranças.",
-    image: "/products/suportes-doces.jpg",
-  },
-  {
-    name: "Sousplats em fibra natural",
-    category: "Mesa posta",
-    description: "Texturas naturais para propostas rústicas, leves e elegantes.",
-    image: "/products/mesa-rustica.jpg",
-  },
-  {
-    name: "Vasos para arranjos",
-    category: "Decorativos",
-    description: "Vasos transparentes em diferentes alturas para composições florais.",
-    image: "/products/vasos-decorativos.jpg",
-  },
-  {
-    name: "Cilindros de vidro",
-    category: "Iluminação decorativa",
-    description: "Peças versáteis para velas, flores e centros de mesa.",
-    image: "/products/cilindros-vidro.jpg",
-  },
-  {
-    name: "Kit mesa posta completa",
-    category: "Louças e acessórios",
-    description: "Pratos, taças e acessórios selecionados para uma mesa harmoniosa.",
-    image: "/products/mesa-posta.jpg",
-  },
-];
-
 const portfolio = [
   ["gallery-1", "Cerimônia ao ar livre com decoração floral", "Casamentos"],
   ["gallery-2", "Mesa de doces de casamento", "Festas"],
@@ -98,8 +48,15 @@ const steps = [
 
 export default function Home() {
   const [portfolioFilter, setPortfolioFilter] = useState("Todos");
+  const [rentalFilter, setRentalFilter] = useState<"Todos" | RentalCategory>("Todos");
   const rentalTrackRef = useRef<HTMLDivElement>(null);
   const visiblePortfolio = portfolio.filter(([, , category]) => portfolioFilter === "Todos" || category === portfolioFilter);
+  const visibleRentals = rentalProducts.filter((product) => rentalFilter === "Todos" || product.category === rentalFilter);
+
+  function filterRentals(category: "Todos" | RentalCategory) {
+    setRentalFilter(category);
+    rentalTrackRef.current?.scrollTo({ left: 0, behavior: "auto" });
+  }
 
   function scrollRentals(direction: -1 | 1) {
     const track = rentalTrackRef.current;
@@ -171,26 +128,43 @@ export default function Home() {
             <div>
               <p className="eyebrow">Acervo para locação</p>
               <h2>Peças que transformam cada cenário</h2>
-              <p className="rentals__intro">Explore alguns itens do nosso acervo. Gostou de uma peça? Solicite a disponibilidade e o orçamento diretamente pelo WhatsApp.</p>
+              <p className="rentals__intro">Explore as peças reais do nosso acervo. Gostou de alguma? Anote a referência e consulte a disponibilidade pelo WhatsApp.</p>
             </div>
             <div className="rental-nav" aria-label="Controles do carrossel">
               <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>
               <button type="button" onClick={() => scrollRentals(1)} aria-label="Ver próximos produtos">→</button>
             </div>
           </div>
+          <div className="rental-filters" aria-label="Categorias dos produtos para locação">
+            {(["Todos", ...rentalCategories] as const).map((category) => {
+              const available = category === "Todos" || rentalProducts.some((product) => product.category === category);
+              return (
+                <button
+                  className={rentalFilter === category ? "active" : ""}
+                  type="button"
+                  aria-pressed={rentalFilter === category}
+                  disabled={!available}
+                  title={available ? undefined : "Fotos desta categoria em preparação"}
+                  onClick={() => filterRentals(category)}
+                  key={category}
+                >{category}</button>
+              );
+            })}
+          </div>
+          <p className="rental-count" aria-live="polite">{visibleRentals.length} {visibleRentals.length === 1 ? "item" : "itens"} para consulta</p>
           <div className="rental-carousel">
             <div className="rental-track" ref={rentalTrackRef} aria-label="Produtos disponíveis para locação">
-              {rentalProducts.map((product) => {
-                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de solicitar disponibilidade e orçamento para locação de: ${product.name}.`)}`;
+              {visibleRentals.map((product) => {
+                const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e o valor de locação de ${product.name} (ref. ${product.id}).`)}`;
                 return (
-                  <article className="rental-card" key={product.name}>
-                    <img src={product.image} alt={`${product.name} em composição de evento`} loading="lazy" />
+                  <article className="rental-card" key={product.id}>
+                    <img src={product.image} alt={product.name} loading="lazy" />
                     <div className="rental-card__body">
                       <span className="rental-card__category">{product.category}</span>
                       <h3>{product.name}</h3>
-                      <p>{product.description}</p>
-                      <a href={quoteLink} target="_blank" rel="noreferrer" aria-label={`Solicitar orçamento de ${product.name} pelo WhatsApp`}>
-                        Solicitar orçamento <span aria-hidden="true">↗</span>
+                      <p>Ref. {product.id} · Consulte a disponibilidade</p>
+                      <a href={quoteLink} target="_blank" rel="noreferrer" aria-label={`Consultar ${product.name}, referência ${product.id}, pelo WhatsApp`}>
+                        Consultar pelo WhatsApp <span aria-hidden="true">↗</span>
                       </a>
                     </div>
                   </article>

@@ -25,14 +25,17 @@ test("renderiza o site completo do Ateliê Del Rio", async () => {
   assert.match(html, /Ateliê Del Rio/);
 });
 
-test("catálogo de locações não exibe preços e envia cada item ao WhatsApp", async () => {
+test("catálogo de bonecos e pelúcias mostra as fotos reais sem preços", async () => {
   const html = await (await render()).text();
   const cards = html.match(/class="rental-card"/g) ?? [];
-  const productLinks = html.match(/aria-label="Solicitar orçamento de [^"]+ pelo WhatsApp"/g) ?? [];
+  const productLinks = html.match(/aria-label="Consultar [^"]+ pelo WhatsApp"/g) ?? [];
 
-  assert.equal(cards.length, 8);
-  assert.equal(productLinks.length, 8);
+  assert.equal(cards.length, 41);
+  assert.equal(productLinks.length, 41);
   assert.match(html, /class="rental-track"/);
+  assert.match(html, /Bonecos e Pelúcias/);
+  assert.match(html, /img-4334\.webp/);
+  assert.match(html, /referência 4334, pelo WhatsApp/);
   assert.match(html, /wa\.me\/5511999999999\?text=/);
   assert.doesNotMatch(html, /R\$\s*\d|preço|valor do item/i);
 });

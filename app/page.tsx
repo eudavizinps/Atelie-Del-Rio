@@ -89,6 +89,7 @@ export default function Home() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [testimonialPaused, setTestimonialPaused] = useState(false);
   const rentalTrackRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDetailsElement>(null);
   const visiblePortfolio = portfolio.filter(([, , category]) => portfolioFilter === "Todos" || category === portfolioFilter);
   const visibleRentals = rentalProducts.filter((product) => rentalFilter === "Todos" || product.category === rentalFilter);
   const activeTestimonial = testimonials[testimonialIndex];
@@ -114,6 +115,10 @@ export default function Home() {
     track.scrollBy({ left: direction * Math.min(track.clientWidth * 0.86, 980), behavior: "smooth" });
   }
 
+  function closeMobileMenu() {
+    if (mobileMenuRef.current) mobileMenuRef.current.open = false;
+  }
+
   return (
     <main>
       <div className="topbar">
@@ -128,7 +133,7 @@ export default function Home() {
 
       <header className="header">
         <div className="site-shell header__inner">
-          <a href="#inicio" aria-label="Página inicial"><Logo /></a>
+          <a href="#inicio" aria-label="Voltar ao início" title="Voltar ao início" onClick={closeMobileMenu}><Logo /></a>
           <nav className="desktop-nav" aria-label="Navegação principal">
             <a href="#inicio">Início</a>
             <a href="#sobre">Sobre</a>
@@ -138,11 +143,11 @@ export default function Home() {
             <a href="#contato">Contato</a>
           </nav>
           <a className="button button--rose header__cta" href="#contato">Solicitar orçamento</a>
-          <details className="mobile-menu">
+          <details className="mobile-menu" ref={mobileMenuRef}>
             <summary aria-label="Abrir menu">☰</summary>
             <nav aria-label="Navegação móvel">
-              <a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a>
-              <a href="#portfolio">Portfólio</a><a href="#depoimentos">Depoimentos</a><a href="#contato">Contato</a>
+              <a href="#inicio" onClick={closeMobileMenu}>Início</a><a href="#sobre" onClick={closeMobileMenu}>Sobre</a><a href="#servicos" onClick={closeMobileMenu}>Serviços</a>
+              <a href="#portfolio" onClick={closeMobileMenu}>Portfólio</a><a href="#depoimentos" onClick={closeMobileMenu}>Depoimentos</a><a href="#contato" onClick={closeMobileMenu}>Contato</a>
             </nav>
           </details>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { rentalCategories, rentalProducts, type RentalCategory } from "./rental-products";
 
 const whatsappNumber = "5521988742550";
@@ -89,36 +89,129 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+function advanceRentalTrack(track: HTMLDivElement, direction: -1 | 1) {
+  const card = track.querySelector<HTMLElement>(".rental-card");
+  const maxScroll = track.scrollWidth - track.clientWidth;
+  if (!card || maxScroll < 2) return;
+
+  const step = card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || "0");
+  const atEnd = direction === 1 ? track.scrollLeft >= maxScroll - 2 : track.scrollLeft <= 2;
+  track.scrollTo({
+    left: atEnd ? (direction === 1 ? 0 : maxScroll) : Math.max(0, Math.min(maxScroll, track.scrollLeft + direction * step)),
+    behavior: atEnd ? "instant" : "smooth",
+  });
+}
+
 export default function Home() {
   const [portfolioFilter, setPortfolioFilter] = useState("Todos");
   const [rentalFilter, setRentalFilter] = useState<"Todos" | RentalCategory>("Todos");
+  const [rentalHasOverflow, setRentalHasOverflow] = useState(false);
+  const [rentalInteraction, setRentalInteraction] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [testimonialPaused, setTestimonialPaused] = useState(false);
+  const testimonialPointer = useRef<{ id: number; x: number; y: number } | null>(null);
   const rentalTrackRef = useRef<HTMLDivElement>(null);
+  const rentalPointer = useRef<{ id: number; x: number; scrollLeft: number; moved: boolean } | null>(null);
+  const rentalWasDragged = useRef(false);
   const mobileMenuRef = useRef<HTMLDetailsElement>(null);
   const visiblePortfolio = portfolio.filter(([, , category]) => portfolioFilter === "Todos" || category === portfolioFilter);
   const visibleRentals = rentalProducts.filter((product) => rentalFilter === "Todos" || product.category === rentalFilter);
   const activeTestimonial = testimonials[testimonialIndex];
 
   useEffect(() => {
-    if (testimonials.length < 2 || testimonialPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (testimonials.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = window.setInterval(() => {
       if (!document.hidden) setTestimonialIndex((index) => (index + 1) % testimonials.length);
-    }, 6000);
+    }, 9000);
 
     return () => window.clearInterval(interval);
-  }, [testimonialPaused]);
+  }, [testimonialIndex]);
+
+  useEffect(() => {
+    const track = rentalTrackRef.current;
+    if (!track) return;
+    const updateOverflow = () => setRentalHasOverflow(track.scrollWidth > track.clientWidth + 2);
+    updateOverflow();
+    const observer = new ResizeObserver(updateOverflow);
+    observer.observe(track);
+    window.addEventListener("resize", updateOverflow);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateOverflow);
+    };
+  }, [rentalFilter]);
+
+  useEffect(() => {
+    if (!rentalHasOverflow || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const interval = window.setInterval(() => {
+      if (!document.hidden && !rentalPointer.current && rentalTrackRef.current) {
+        advanceRentalTrack(rentalTrackRef.current, 1);
+      }
+    }, 5000);
+    return () => window.clearInterval(interval);
+  }, [rentalFilter, rentalHasOverflow, rentalInteraction]);
+
+  function moveTestimonial(direction: -1 | 1) {
+    setTestimonialIndex((index) => (index + direction + testimonials.length) % testimonials.length);
+  }
+
+  function startTestimonialDrag(event: PointerEvent<HTMLDivElement>) {
+    if (event.button !== 0 || (event.target as HTMLElement).closest("button")) return;
+    if (event.pointerType === "mouse") event.preventDefault();
+    testimonialPointer.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function endTestimonialDrag(event: PointerEvent<HTMLDivElement>) {
+    const start = testimonialPointer.current;
+    testimonialPointer.current = null;
+    if (!start || start.id !== event.pointerId) return;
+
+    const distanceX = event.clientX - start.x;
+    const distanceY = event.clientY - start.y;
+    if (Math.abs(distanceX) > 48 && Math.abs(distanceX) > Math.abs(distanceY) * 1.2) {
+      moveTestimonial(distanceX < 0 ? 1 : -1);
+    }
+  }
 
   function filterRentals(category: "Todos" | RentalCategory) {
     setRentalFilter(category);
     rentalTrackRef.current?.scrollTo({ left: 0, behavior: "auto" });
+    setRentalInteraction((count) => count + 1);
   }
 
   function scrollRentals(direction: -1 | 1) {
     const track = rentalTrackRef.current;
     if (!track) return;
-    track.scrollBy({ left: direction * Math.min(track.clientWidth * 0.86, 980), behavior: "smooth" });
+    advanceRentalTrack(track, direction);
+    setRentalInteraction((count) => count + 1);
+  }
+
+  function startRentalDrag(event: PointerEvent<HTMLDivElement>) {
+    rentalWasDragged.current = false;
+    if (event.pointerType !== "mouse" || event.button !== 0 || (event.target as HTMLElement).closest("a, button")) return;
+    rentalPointer.current = { id: event.pointerId, x: event.clientX, scrollLeft: event.currentTarget.scrollLeft, moved: false };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function moveRentalDrag(event: PointerEvent<HTMLDivElement>) {
+    const start = rentalPointer.current;
+    if (!start || start.id !== event.pointerId) return;
+    const distance = event.clientX - start.x;
+    if (Math.abs(distance) > 8) start.moved = true;
+    if (!start.moved) return;
+    event.preventDefault();
+    event.currentTarget.classList.add("is-dragging");
+    event.currentTarget.scrollLeft = start.scrollLeft - distance;
+  }
+
+  function endRentalDrag(event: PointerEvent<HTMLDivElement>) {
+    const start = rentalPointer.current;
+    if (!start || start.id !== event.pointerId) return;
+    rentalWasDragged.current = start.moved;
+    rentalPointer.current = null;
+    event.currentTarget.classList.remove("is-dragging");
+    if (start.moved) setRentalInteraction((count) => count + 1);
   }
 
   function closeMobileMenu() {
@@ -190,10 +283,6 @@ export default function Home() {
               <h2>Peças que transformam cada cenário</h2>
               <p className="rentals__intro">Explore o acervo e consulte a disponibilidade de cada peça pelo WhatsApp.</p>
             </div>
-            <div className="rental-nav" aria-label="Controles do carrossel">
-              <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>
-              <button type="button" onClick={() => scrollRentals(1)} aria-label="Ver próximos produtos">→</button>
-            </div>
           </div>
           <div className="rental-filters" aria-label="Categorias dos produtos para locação">
             {(["Todos", ...rentalCategories] as const).map((category) => {
@@ -213,12 +302,27 @@ export default function Home() {
           </div>
           <p className="rental-count" aria-live="polite">{visibleRentals.length} {visibleRentals.length === 1 ? "item" : "itens"} para consulta</p>
           <div className="rental-carousel">
-            <div className="rental-track" ref={rentalTrackRef} aria-label="Produtos disponíveis para locação">
+            <div
+              className="rental-track"
+              ref={rentalTrackRef}
+              aria-label="Produtos disponíveis para locação"
+              onPointerDown={startRentalDrag}
+              onPointerMove={moveRentalDrag}
+              onPointerUp={endRentalDrag}
+              onPointerCancel={endRentalDrag}
+              onClickCapture={(event) => {
+                if (rentalWasDragged.current) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  rentalWasDragged.current = false;
+                }
+              }}
+            >
               {visibleRentals.map((product) => {
                 const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e solicitar um orçamento para: ${product.name}.`)}`;
                 return (
                   <article className="rental-card" key={product.id}>
-                    <img src={product.image} alt={product.name} loading="lazy" />
+                    <img src={product.image} alt={product.name} loading="lazy" draggable={false} />
                     <div className="rental-card__body">
                       <span className="rental-card__category">{product.category}</span>
                       <h3>{product.name}</h3>
@@ -231,6 +335,12 @@ export default function Home() {
                 );
               })}
             </div>
+            {rentalHasOverflow && (
+              <div className="rental-nav" role="group" aria-label="Controles do carrossel">
+                <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>
+                <button type="button" onClick={() => scrollRentals(1)} aria-label="Ver próximos produtos">→</button>
+              </div>
+            )}
             <p className="rentals__hint">Deslize para conhecer mais peças <span aria-hidden="true">→</span></p>
           </div>
         </div>
@@ -292,27 +402,30 @@ export default function Home() {
       <section className="testimonial-section" id="depoimentos">
         <div
           className="site-shell testimonial"
-          onMouseEnter={() => setTestimonialPaused(true)}
-          onMouseLeave={() => setTestimonialPaused(false)}
-          onFocusCapture={() => setTestimonialPaused(true)}
-          onBlurCapture={() => setTestimonialPaused(false)}
+          onPointerDown={startTestimonialDrag}
+          onPointerUp={endTestimonialDrag}
+          onPointerCancel={() => { testimonialPointer.current = null; }}
         >
           <span className="testimonial__quote" aria-hidden="true">“</span>
           <blockquote>{activeTestimonial.quote}</blockquote>
           <p className="testimonial__author">{activeTestimonial.author}</p>
           <span className="testimonial__event">{activeTestimonial.event}</span>
           {testimonials.length > 1 && (
-            <div className="testimonial__dots" role="group" aria-label="Navegar pelos depoimentos">
-              {testimonials.map((testimonial, index) => (
-                <button
-                  type="button"
-                  key={`${testimonial.author}-${index}`}
-                  className={index === testimonialIndex ? "active" : ""}
-                  aria-label={`Mostrar depoimento ${index + 1} de ${testimonial.author}`}
-                  aria-pressed={index === testimonialIndex}
-                  onClick={() => setTestimonialIndex(index)}
-                />
-              ))}
+            <div className="testimonial__controls">
+              <button className="testimonial__arrow" type="button" aria-label="Depoimento anterior" onClick={() => moveTestimonial(-1)}>←</button>
+              <div className="testimonial__dots" role="group" aria-label="Navegar pelos depoimentos">
+                {testimonials.map((testimonial, index) => (
+                  <button
+                    type="button"
+                    key={`${testimonial.author}-${index}`}
+                    className={index === testimonialIndex ? "active" : ""}
+                    aria-label={`Mostrar depoimento ${index + 1} de ${testimonial.author}`}
+                    aria-pressed={index === testimonialIndex}
+                    onClick={() => setTestimonialIndex(index)}
+                  />
+                ))}
+              </div>
+              <button className="testimonial__arrow" type="button" aria-label="Próximo depoimento" onClick={() => moveTestimonial(1)}>→</button>
             </div>
           )}
         </div>

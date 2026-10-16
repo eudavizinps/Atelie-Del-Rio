@@ -74,7 +74,7 @@ const steps = [
   ["04", "♧", "Celebramos com você", "No grande dia, é só aproveitar cada momento."],
 ];
 
-type Testimonial = { quote: string; author: string; event: string };
+type Testimonial = { quote: string; author: string; event?: string };
 
 const testimonials: Testimonial[] = [
   {
@@ -86,6 +86,20 @@ const testimonials: Testimonial[] = [
     quote: "Ficou tudo lindo! A comida uma delícia! Todo mundo amou!!! Obrigada mais uma vez!",
     author: "Ana",
     event: "Buffet 10/10",
+  },
+  {
+    quote: "Marlene, queria agradecer pelo carinho e cuidado que fez a festa da minha princesa. Deu para perceber em cada detalhe o quanto seu trabalho é maravilhoso. Tudo ficou exatamento como ela queria e como havíamos planejado. Na verdade, superou nossas expectativas! Todos os convidados elogiaram o buffet que estava delicioso. O atendimento foi nota 1000. Parabéns pelo seu trabalho, sua equipe e obrigada pelo carinho e dedicação que fez a festa da minha filha. E ano que vem estamos aí de novo!!!",
+    author: "Rebeca Carneiro",
+  },
+  {
+    quote: "Marlene, bom dia! Gostaria de agradecer pela festa impecável de ontem, a decoração se supera a cada ano! O buffet como sempre delicioso e muito bem servido, até brinquei com o s garçons pedindo pra pararem de passar com a bandeja porque a gente não aguentava mais comer. Equipe maravilhosa, com destaque especial para a Eliane que é fora da curva. Foi tudo incrível como sempre! Obrigada por mais um ano de parceria!",
+    author: "Gabi",
+    event: "Buffet 08/03",
+  },
+  {
+    quote: "Queria te agradecer de coração por todo o cuidado com o buffet e a decoração da festa da Laura. Ficou tudo simplesmente lindo e delicioso! Recebi muitos elogios e faço questão de repassar para você e sua equipe. Muito obrigada pelo carinho, profissionalismo e dedicação!",
+    author: "Miryam",
+    event: "Buffet 07/03",
   },
 ];
 
@@ -434,7 +448,7 @@ export default function Home() {
           <div className="testimonial__body" key={testimonialIndex}>
             <blockquote>{activeTestimonial.quote}</blockquote>
             <p className="testimonial__author">{activeTestimonial.author}</p>
-            <span className="testimonial__event">{activeTestimonial.event}</span>
+            {activeTestimonial.event && <span className="testimonial__event">{activeTestimonial.event}</span>}
           </div>
           {testimonials.length > 1 && (
             <div className="testimonial__controls">

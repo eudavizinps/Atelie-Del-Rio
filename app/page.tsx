@@ -118,6 +118,25 @@ export default function Home() {
   const activeTestimonial = testimonials[testimonialIndex];
 
   useEffect(() => {
+    const targets = document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-visible)");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+      targets.forEach((target) => target.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
+
+    targets.forEach((target) => observer.observe(target));
+    return () => observer.disconnect();
+  }, [rentalFilter, portfolioFilter]);
+
+  useEffect(() => {
     if (testimonials.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = window.setInterval(() => {
@@ -268,7 +287,7 @@ export default function Home() {
       </section>
 
       <section className="features-wrap" aria-label="Diferenciais">
-        <div className="site-shell features">
+        <div className="site-shell features" data-reveal>
           <div className="feature"><span className="feature__icon">⚘</span><span>Projetos<br />personalizados</span></div>
           <div className="feature"><span className="feature__icon">▱</span><span>Acervo<br />selecionado</span></div>
           <div className="feature"><span className="feature__icon">♡</span><span>Cuidado em<br />cada detalhe</span></div>
@@ -277,14 +296,14 @@ export default function Home() {
 
       <section className="section services" id="servicos">
         <div className="site-shell">
-          <div className="rentals__heading">
+          <div className="rentals__heading" data-reveal>
             <div>
               <p className="eyebrow">Acervo para locação</p>
               <h2>Peças que transformam cada cenário</h2>
               <p className="rentals__intro">Explore o acervo e consulte a disponibilidade de cada peça pelo WhatsApp.</p>
             </div>
           </div>
-          <div className="rental-filters" aria-label="Categorias dos produtos para locação">
+          <div className="rental-filters" aria-label="Categorias dos produtos para locação" data-reveal>
             {(["Todos", ...rentalCategories] as const).map((category) => {
               const available = category === "Todos" || rentalProducts.some((product) => product.category === category);
               return (
@@ -318,10 +337,10 @@ export default function Home() {
                 }
               }}
             >
-              {visibleRentals.map((product) => {
+              {visibleRentals.map((product, index) => {
                 const quoteLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade e solicitar um orçamento para: ${product.name}.`)}`;
                 return (
-                  <article className="rental-card" key={product.id}>
+                  <article className="rental-card" key={product.id} data-reveal style={{ "--reveal-delay": `${(index % 5) * 55}ms` } as CSSProperties}>
                     <img src={product.image} alt={product.name} loading="lazy" draggable={false} />
                     <div className="rental-card__body">
                       <span className="rental-card__category">{product.category}</span>
@@ -348,10 +367,10 @@ export default function Home() {
 
       <section className="section about" id="sobre">
         <div className="site-shell about__grid">
-          <figure className="about__portrait">
+          <figure className="about__portrait" data-reveal>
             <img src="/marlene-del-rio.jpg" alt="Marlene Del Rio, dona do Ateliê Del Rio" width="1122" height="1402" loading="lazy" />
           </figure>
-          <div className="about__content">
+          <div className="about__content" data-reveal style={{ "--reveal-delay": "100ms" } as CSSProperties}>
             <p className="eyebrow">Sobre o ateliê</p>
             <h2>Cada celebração merece uma identidade única.</h2>
             <p>Tudo começou na minha festa de 10 anos, quando eu mesma quis participar da decoração. Enquanto todos viam apenas uma comemoração, eu enxergava detalhes, cores e possibilidades. Minha mãe comprava bonequinhas e eu desmontava todas para montar do meu jeito. Foi ali que nasceu minha paixão por criar, transformar e dar vida às ideias.</p>
@@ -363,7 +382,7 @@ export default function Home() {
 
       <section className="section portfolio" id="portfolio">
         <div className="site-shell">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal>
             <p className="eyebrow">Portfólio</p>
             <h2>Eventos que contam histórias</h2>
             <div className="portfolio__filters" aria-label="Categorias do portfólio">
@@ -379,18 +398,22 @@ export default function Home() {
             </div>
           </div>
           <div className="gallery">
-            {visiblePortfolio.map(([crop, label]) => <Photo crop={crop} label={label} key={crop} />)}
+            {visiblePortfolio.map(([crop, label], index) => (
+              <div className="gallery__item" key={crop} data-reveal style={{ "--reveal-delay": `${index * 65}ms` } as CSSProperties}>
+                <Photo crop={crop} label={label} />
+              </div>
+            ))}
           </div>
-          <div className="portfolio__footer"><a className="button button--wine" href="#contato">Solicite seu orçamento</a></div>
+          <div className="portfolio__footer" data-reveal><a className="button button--wine" href="#contato">Solicite seu orçamento</a></div>
         </div>
       </section>
 
       <section className="section process" id="processo">
         <div className="site-shell">
-          <div className="section-heading"><h2>Do primeiro contato ao grande dia</h2></div>
+          <div className="section-heading" data-reveal><h2>Do primeiro contato ao grande dia</h2></div>
           <div className="process__grid">
             {steps.map(([number, icon, title, text], index) => (
-              <article className="process-step" key={number} style={{ "--delay": `${index * 80}ms` } as CSSProperties}>
+              <article className="process-step" key={number} data-reveal style={{ "--reveal-delay": `${index * 85}ms` } as CSSProperties}>
                 <div className="process-step__head"><span className="process-step__number">{number}</span><span className="process-step__icon">{icon}</span></div>
                 <h3>{title}</h3><p>{text}</p>
               </article>
@@ -402,14 +425,17 @@ export default function Home() {
       <section className="testimonial-section" id="depoimentos">
         <div
           className="site-shell testimonial"
+          data-reveal
           onPointerDown={startTestimonialDrag}
           onPointerUp={endTestimonialDrag}
           onPointerCancel={() => { testimonialPointer.current = null; }}
         >
           <span className="testimonial__quote" aria-hidden="true">“</span>
-          <blockquote>{activeTestimonial.quote}</blockquote>
-          <p className="testimonial__author">{activeTestimonial.author}</p>
-          <span className="testimonial__event">{activeTestimonial.event}</span>
+          <div className="testimonial__body" key={testimonialIndex}>
+            <blockquote>{activeTestimonial.quote}</blockquote>
+            <p className="testimonial__author">{activeTestimonial.author}</p>
+            <span className="testimonial__event">{activeTestimonial.event}</span>
+          </div>
           {testimonials.length > 1 && (
             <div className="testimonial__controls">
               <button className="testimonial__arrow" type="button" aria-label="Depoimento anterior" onClick={() => moveTestimonial(-1)}>←</button>
@@ -432,7 +458,7 @@ export default function Home() {
       </section>
 
       <section className="cta-section" id="contato">
-        <div className="site-shell cta">
+        <div className="site-shell cta" data-reveal>
           <Photo crop="cta-photo" label="Buquê de rosas em tons suaves" />
           <div className="cta__content"><h2>Vamos criar algo inesquecível juntos?</h2><p>Conte-nos sobre o seu evento e receba uma proposta personalizada.</p></div>
           <a className="button button--wine cta__button" href={whatsapp} target="_blank" rel="noreferrer"><SocialIcon name="whatsapp" /> Falar pelo WhatsApp</a>
@@ -441,7 +467,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="site-shell footer__grid">
-          <div className="footer__brand">
+          <div className="footer__brand" data-reveal>
             <Logo compact />
             <p>Decorações autorais, locações selecionadas e buffet impecável para eventos que ficam na memória.</p>
             <div className="footer__socials">
@@ -450,9 +476,9 @@ export default function Home() {
               <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook"><SocialIcon name="facebook" /></a>
             </div>
           </div>
-          <div><h3>Navegação</h3><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#depoimentos">Depoimentos</a><a href="#contato">Contato</a></div>
-          <div><h3>Serviços</h3><span>Decoração de eventos</span><span>Locação de peças</span><span>Buffet</span><span>Assessoria completa</span><span>Eventos corporativos</span><span>Mini weddings</span></div>
-          <div><h3>Contato</h3><a href={`tel:+${whatsappNumber}`}>☎ &nbsp;(21) 98874-2550</a><a href="mailto:contato@ateliedelrio.com.br">✉ &nbsp;contato@ateliedelrio.com.br</a><span>⌖ &nbsp;Rua Franz Listz, 218 - Jardim América, RJ</span><span>◷ &nbsp;Atendimento: Seg a Sex, 9h às 18h</span></div>
+          <div data-reveal style={{ "--reveal-delay": "70ms" } as CSSProperties}><h3>Navegação</h3><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#depoimentos">Depoimentos</a><a href="#contato">Contato</a></div>
+          <div data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}><h3>Serviços</h3><span>Decoração de eventos</span><span>Locação de peças</span><span>Buffet</span><span>Assessoria completa</span><span>Eventos corporativos</span><span>Mini weddings</span></div>
+          <div data-reveal style={{ "--reveal-delay": "210ms" } as CSSProperties}><h3>Contato</h3><a href={`tel:+${whatsappNumber}`}>☎ &nbsp;(21) 98874-2550</a><a href="mailto:contato@ateliedelrio.com.br">✉ &nbsp;contato@ateliedelrio.com.br</a><span>⌖ &nbsp;Rua Franz Listz, 218 - Jardim América, RJ</span><span>◷ &nbsp;Atendimento: Seg a Sex, 9h às 18h</span></div>
         </div>
         <div className="site-shell footer__bottom">© 2026 Ateliê Del Rio. Todos os direitos reservados.</div>
       </footer>

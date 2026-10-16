@@ -220,7 +220,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   .about__grid { grid-template-columns: 1fr; }
   .about__portrait { width: min(100%, 320px); }
   .about__content { padding: 0 18px; text-align: center; }
-  .about__content p:not(.eyebrow) { margin-inline: auto; }
+  .about__content p:not(.eyebrow) { margin-inline: auto; text-align: left; }
   .process__grid { grid-template-columns: repeat(2, 1fr); gap: 26px 0; }
   .process-step:nth-child(2)::after { display: none; }
   .testimonial { padding-inline: 55px; }

@@ -239,7 +239,8 @@ export default function Home() {
           <div className="about__content">
             <p className="eyebrow">Sobre o ateliê</p>
             <h2>Cada celebração merece uma identidade única.</h2>
-            <p>Acreditamos que cada evento é único e merece ser vivido com emoção e beleza. Por isso, ouvimos, planejamos e criamos projetos personalizados, com curadoria de peças selecionadas, decoração autoral e um buffet que encanta todos os sentidos.</p>
+            <p>Tudo começou na minha festa de 10 anos, quando eu mesma quis participar da decoração. Enquanto todos viam apenas uma comemoração, eu enxergava detalhes, cores e possibilidades. Minha mãe comprava bonequinhas e eu desmontava todas para montar do meu jeito. Foi ali que nasceu minha paixão por criar, transformar e dar vida às ideias.</p>
+            <p>Com o tempo, comecei a decorar as festas da minha família e percebi que aquilo não era apenas diversão, era talento e amor pelo que eu fazia. Depois que me casei, decidi assumir de vez minha paixão pela decoração. Estudei, me especializei e investi em cursos e materiais. Com o apoio do meu esposo, transformei o sonho de infância em minha realidade profissional.</p>
             <div className="signature">Ateliê Del Rio</div>
           </div>
         </div>

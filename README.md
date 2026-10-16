@@ -109,12 +109,12 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 ## Catálogo de locações
 
 Os itens e as quatro categorias do carrossel estão em `app/rental-products.ts`.
-As fotos de Bonecos e Pelúcias ficam em `public/products/bonecos-pelucias/`
-e as de Decorações em `public/products/decoracoes/`. As fotos de Mesas e
-Decorativos ficam em `public/products/mesas-decorativos/`. O número do arquivo
-é usado apenas para identificar a foto no código. A categoria Painéis e
-Cômodas fica indisponível até receber fotos reais. O número do
-WhatsApp em `app/page.tsx` ainda é provisório.
+As fotos de Bonecos e Pelúcias ficam em `public/products/bonecos-pelucias/`,
+as de Decorações em `public/products/decoracoes/`, as de Mesas e Decorativos em
+`public/products/mesas-decorativos/` e as de Painéis e Cômodas em
+`public/products/paineis-comodas/`. O número do arquivo é usado apenas para
+identificar a foto no código. O número do WhatsApp em `app/page.tsx` ainda é
+provisório.
 
 ## Useful Commands
 

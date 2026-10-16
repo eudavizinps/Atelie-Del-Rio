@@ -30,6 +30,33 @@ function Logo({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function SocialIcon({ name }: { name: "instagram" | "whatsapp" | "facebook" }) {
+  if (name === "instagram") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+        <circle cx="12" cy="12" r="4.2" />
+        <circle cx="17.7" cy="6.4" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (name === "whatsapp") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.5-4.8a8.5 8.5 0 1 1 16-4.1Z" />
+        <path d="M8.3 7.6c.3-.3.6-.2.8.1l1.3 1.8c.2.3.2.6-.1.8l-.8.7a8 8 0 0 0 3.5 3.5l.7-.8c.2-.3.5-.3.8-.1l1.8 1.2c.3.2.4.6.1.9-.5.8-1.2 1.2-2.1 1.2-3.1 0-6.9-3.8-6.9-6.9 0-.8.3-1.5.9-2Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3-.1-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.1H7.3V13h2.8v8h3.4Z" />
+    </svg>
+  );
+}
+
 const portfolio = [
   ["gallery-1", "Cerimônia ao ar livre com decoração floral", "Casamentos"],
   ["gallery-2", "Mesa de doces de casamento", "Festas"],
@@ -93,8 +120,8 @@ export default function Home() {
         <div className="site-shell topbar__inner">
           <span>Atendimento personalizado para o seu evento</span>
           <div className="socials" aria-label="Redes sociais">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">◎</a>
-            <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp">◉</a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
+            <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a>
           </div>
         </div>
       </div>
@@ -286,7 +313,7 @@ export default function Home() {
         <div className="site-shell cta">
           <Photo crop="cta-photo" label="Buquê de rosas em tons suaves" />
           <div className="cta__content"><h2>Vamos criar algo inesquecível juntos?</h2><p>Conte-nos sobre o seu evento e receba uma proposta personalizada.</p></div>
-          <a className="button button--wine cta__button" href={whatsapp} target="_blank" rel="noreferrer">◉&nbsp; Falar pelo WhatsApp</a>
+          <a className="button button--wine cta__button" href={whatsapp} target="_blank" rel="noreferrer"><SocialIcon name="whatsapp" /> Falar pelo WhatsApp</a>
         </div>
       </section>
 
@@ -295,7 +322,11 @@ export default function Home() {
           <div className="footer__brand">
             <Logo compact />
             <p>Decorações autorais, locações selecionadas e buffet impecável para eventos que ficam na memória.</p>
-            <div className="footer__socials"><a href="https://instagram.com" aria-label="Instagram">◎</a><a href={whatsapp} aria-label="WhatsApp">◉</a><a href="https://facebook.com" aria-label="Facebook">f</a></div>
+            <div className="footer__socials">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
+              <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a>
+              <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook"><SocialIcon name="facebook" /></a>
+            </div>
           </div>
           <div><h3>Navegação</h3><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#depoimentos">Depoimentos</a><a href="#contato">Contato</a></div>
           <div><h3>Serviços</h3><span>Decoração de eventos</span><span>Locação de peças</span><span>Buffet</span><span>Assessoria completa</span><span>Eventos corporativos</span><span>Mini weddings</span></div>

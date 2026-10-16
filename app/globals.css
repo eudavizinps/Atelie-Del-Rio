@@ -34,8 +34,10 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .site-shell { width: min(1220px, calc(100% - (var(--shell-gutter) * 2))); margin-inline: auto; }
 .topbar { background: linear-gradient(90deg, #f8e5e4, #fff7f5); color: #624d51; font-size: 12px; }
 .topbar__inner { min-height: 28px; display: flex; align-items: center; justify-content: space-between; }
-.socials, .footer__socials { display: flex; align-items: center; gap: 13px; }
-.socials a { font-size: 19px; line-height: 1; }
+.socials, .footer__socials { display: flex; align-items: center; gap: 8px; }
+.socials a { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; }
+.socials a:hover { color: var(--wine); }
+.socials svg, .footer__socials svg { width: 18px; height: 18px; display: block; }
 
 .header { position: relative; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid #fff4f2; }
 .header__inner { min-height: 74px; display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }
@@ -173,6 +175,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .cta__content h2 { margin-bottom: 4px; font-size: clamp(23px, 2.4vw, 29px); line-height: 1.05; }
 .cta__content p { margin-bottom: 0; font-size: 12px; }
 .cta__button { margin: 0 24px 0 8px; white-space: nowrap; }
+.cta__button svg { width: 18px; height: 18px; margin-right: 8px; flex: 0 0 auto; }
 
 .footer { padding: 28px 0 14px; background: radial-gradient(circle at 70% 0, #501c26 0, #2f0c14 64%); color: #f9e6e5; }
 .footer__grid { display: grid; grid-template-columns: 1.3fr .7fr 1fr 1.3fr; gap: clamp(20px, 2.5vw, 36px); }
@@ -180,7 +183,7 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .footer h3 { margin: 10px 0 10px; color: #fff; font-size: 14px; }
 .footer a, .footer span, .footer p { margin-bottom: 4px; color: #eed6d7; font-size: 12px; }
 .footer__brand p { max-width: 240px; margin-top: 12px; }
-.footer__socials a { width: 27px; height: 27px; margin: 0; display: inline-flex; align-items: center; justify-content: center; background: #6a2d37; border-radius: 50%; color: #fff; font-weight: 700; }
+.footer__socials a { width: 32px; height: 32px; margin: 0; display: inline-flex; align-items: center; justify-content: center; background: #6a2d37; border-radius: 50%; color: #fff; }
 .footer__bottom { margin-top: 20px; padding-top: 13px; border-top: 1px solid rgba(255,255,255,.08); text-align: center; color: #cfafb3; font-size: 11px; }
 
 @media (max-width: 1050px) {

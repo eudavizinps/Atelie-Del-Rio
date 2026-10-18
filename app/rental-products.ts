@@ -1,8 +1,13 @@
 export const rentalCategories = [
-  "Bonecos e Pelúcias",
-  "Decorações",
-  "Mesas e Decorativos",
-  "Painéis e Cômodas",
+  "Decoração",
+  "Bandejas",
+  "Pelúcias & Bonecos",
+  "Painel",
+  "Cômodas",
+  "Mesas",
+  "Leds",
+  "Arranjos",
+  "Cenários",
 ] as const;
 
 export type RentalCategory = (typeof rentalCategories)[number];
@@ -146,29 +151,48 @@ const panelsAndChests: [number, string][] = [
   [4336, "Máscaras e acessórios de festa"],
 ];
 
+// Classificação inicial do acervo; as fotos poderão ser redistribuídas por categoria.
+const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
+  3894: "Decoração",
+  3892: "Painel",
+  3891: "Painel",
+  3877: "Decoração",
+  3876: "Decoração",
+  3874: "Decoração",
+  3872: "Painel",
+  3871: "Painel",
+  3867: "Cômodas",
+  3866: "Painel",
+};
+
+const panelCategoryOverrides: Partial<Record<number, RentalCategory>> = {
+  4436: "Cenários",
+  4384: "Cenários",
+};
+
 export const rentalProducts: RentalProduct[] = [
   ...dollsAndPlushies.map(([id, name]) => ({
     id,
     name,
-    category: "Bonecos e Pelúcias" as const,
+    category: "Pelúcias & Bonecos" as const,
     image: `/products/bonecos-pelucias/img-${id}.webp`,
   })),
   ...decorations.map(([id, name]) => ({
     id,
     name,
-    category: "Decorações" as const,
+    category: "Decoração" as const,
     image: `/products/decoracoes/img-${id}.webp`,
   })),
   ...tablesAndDecor.map(([id, name]) => ({
     id,
     name,
-    category: "Mesas e Decorativos" as const,
+    category: tableCategoryOverrides[id] ?? "Mesas",
     image: `/products/mesas-decorativos/img-${id}.webp`,
   })),
   ...panelsAndChests.map(([id, name]) => ({
     id,
     name,
-    category: "Painéis e Cômodas" as const,
+    category: panelCategoryOverrides[id] ?? "Painel",
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ];

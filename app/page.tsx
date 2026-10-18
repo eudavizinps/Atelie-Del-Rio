@@ -118,7 +118,7 @@ function advanceRentalTrack(track: HTMLDivElement, direction: -1 | 1) {
 
 export default function Home() {
   const [portfolioFilter, setPortfolioFilter] = useState("Todos");
-  const [rentalFilter, setRentalFilter] = useState<"Todos" | RentalCategory>("Todos");
+  const [rentalFilter, setRentalFilter] = useState<RentalCategory>(rentalCategories[0]);
   const [rentalHasOverflow, setRentalHasOverflow] = useState(false);
   const [rentalInteraction, setRentalInteraction] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
@@ -128,7 +128,7 @@ export default function Home() {
   const rentalWasDragged = useRef(false);
   const mobileMenuRef = useRef<HTMLDetailsElement>(null);
   const visiblePortfolio = portfolio.filter(([, , category]) => portfolioFilter === "Todos" || category === portfolioFilter);
-  const visibleRentals = rentalProducts.filter((product) => rentalFilter === "Todos" || product.category === rentalFilter);
+  const visibleRentals = rentalProducts.filter((product) => product.category === rentalFilter);
   const activeTestimonial = testimonials[testimonialIndex];
 
   useEffect(() => {
@@ -162,7 +162,10 @@ export default function Home() {
 
   useEffect(() => {
     const track = rentalTrackRef.current;
-    if (!track) return;
+    if (!track) {
+      setRentalHasOverflow(false);
+      return;
+    }
     const updateOverflow = () => setRentalHasOverflow(track.scrollWidth > track.clientWidth + 2);
     updateOverflow();
     const observer = new ResizeObserver(updateOverflow);
@@ -207,7 +210,7 @@ export default function Home() {
     }
   }
 
-  function filterRentals(category: "Todos" | RentalCategory) {
+  function filterRentals(category: RentalCategory) {
     setRentalFilter(category);
     rentalTrackRef.current?.scrollTo({ left: 0, behavior: "auto" });
     setRentalInteraction((count) => count + 1);
@@ -318,24 +321,22 @@ export default function Home() {
             </div>
           </div>
           <div className="rental-filters" aria-label="Categorias dos produtos para locação" data-reveal>
-            {(["Todos", ...rentalCategories] as const).map((category) => {
-              const available = category === "Todos" || rentalProducts.some((product) => product.category === category);
-              return (
-                <button
-                  className={rentalFilter === category ? "active" : ""}
-                  type="button"
-                  aria-pressed={rentalFilter === category}
-                  disabled={!available}
-                  title={available ? undefined : "Fotos desta categoria em preparação"}
-                  onClick={() => filterRentals(category)}
-                  key={category}
-                >{category}</button>
-              );
-            })}
+            {rentalCategories.map((category) => (
+              <button
+                className={rentalFilter === category ? "active" : ""}
+                type="button"
+                aria-pressed={rentalFilter === category}
+                onClick={() => filterRentals(category)}
+                key={category}
+              >{category}</button>
+            ))}
           </div>
-          <p className="rental-count" aria-live="polite">{visibleRentals.length} {visibleRentals.length === 1 ? "item" : "itens"} para consulta</p>
+          {visibleRentals.length > 0 && <p className="rental-count" aria-live="polite">{visibleRentals.length} {visibleRentals.length === 1 ? "item" : "itens"} para consulta</p>}
           <div className="rental-carousel">
-            <div
+            {visibleRentals.length === 0 ? (
+              <p className="rental-empty" role="status">Fotos desta categoria serão adicionadas em breve.</p>
+            ) : (
+              <div
               className="rental-track"
               ref={rentalTrackRef}
               aria-label="Produtos disponíveis para locação"
@@ -366,14 +367,15 @@ export default function Home() {
                   </article>
                 );
               })}
-            </div>
-            {rentalHasOverflow && (
+              </div>
+            )}
+            {rentalHasOverflow && visibleRentals.length > 0 && (
               <div className="rental-nav" role="group" aria-label="Controles do carrossel">
                 <button type="button" onClick={() => scrollRentals(-1)} aria-label="Ver produtos anteriores">←</button>
                 <button type="button" onClick={() => scrollRentals(1)} aria-label="Ver próximos produtos">→</button>
               </div>
             )}
-            <p className="rentals__hint">Deslize para conhecer mais peças <span aria-hidden="true">→</span></p>
+            {visibleRentals.length > 0 && <p className="rentals__hint">Deslize para conhecer mais peças <span aria-hidden="true">→</span></p>}
           </div>
         </div>
       </section>

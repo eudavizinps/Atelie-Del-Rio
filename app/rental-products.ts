@@ -195,4 +195,8 @@ export const rentalProducts: RentalProduct[] = [
     category: panelCategoryOverrides[id] ?? "Painel",
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
-];
+].map((product) =>
+  product.category === "Decoração"
+    ? product
+    : { ...product, image: product.image.replace("/products/", "/products/white/") },
+);

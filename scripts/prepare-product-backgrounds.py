@@ -19,15 +19,13 @@ SOURCE = ROOT / "public" / "products"
 PILOT_OUTPUT = ROOT / "work" / "white-background-pilot"
 CATALOG_OUTPUT = SOURCE / "white"
 
-# All seven items currently in the Decoração tab must keep their original photos.
-DECORATION_PHOTOS = {
+# These photos keep the original background; IMG_3876 needs a better source
+# photo because automated cutouts also include the person and other objects.
+ORIGINAL_BACKGROUND_PHOTOS = {
     "decoracoes/img-6336.webp",
     "decoracoes/img-6335.webp",
     "decoracoes/img-6334.webp",
-    "mesas-decorativos/img-3894.webp",
-    "mesas-decorativos/img-3877.webp",
     "mesas-decorativos/img-3876.webp",
-    "mesas-decorativos/img-3874.webp",
 }
 
 PILOT_PHOTOS = (
@@ -90,11 +88,11 @@ def main() -> None:
             parser.error("--photo can only be used with pilot")
         photos = sorted(
             path for path in SOURCE.glob("*/*.webp")
-            if path.relative_to(SOURCE).as_posix() not in DECORATION_PHOTOS
+            if path.relative_to(SOURCE).as_posix() not in ORIGINAL_BACKGROUND_PHOTOS
         )
         output = CATALOG_OUTPUT
-        if len(photos) != 113:
-            raise SystemExit(f"Expected 113 catalog photos, found {len(photos)}")
+        if len(photos) != 116:
+            raise SystemExit(f"Expected 116 catalog photos, found {len(photos)}")
 
     print(f"Processing {len(photos)} photos", flush=True)
     sessions = {}

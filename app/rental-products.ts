@@ -75,7 +75,7 @@ const tablesAndDecor: [number, string][] = [
   [3913, "Mesas redondas rústicas"],
   [3909, "Mesa retangular de madeira rústica"],
   [3906, "Mesa baixa de madeira rústica"],
-  [3894, "Módulo decorativo em formato de roda"],
+  [3894, "Módulo decorativo com aro de LED"],
   [3892, "Painel decorativo em arcos coloridos"],
   [3891, "Painel brilhante para festas"],
   [3885, "Trio de mesas redondas cor-de-rosa"],
@@ -83,7 +83,7 @@ const tablesAndDecor: [number, string][] = [
   [3882, "Conjunto de mesas metálicas douradas"],
   [3880, "Mesas orgânicas em tons pastel"],
   [3879, "Composição de mesas orgânicas e arco"],
-  [3877, "Trio de suportes brancos com tampos de madeira"],
+  [3877, "Conjunto de mesas brancas com tampos de madeira"],
   [3876, "Suportes aramados decorativos"],
   [3874, "Cubos decorativos em formato de dados"],
   [3872, "Painel temático esportivo"],
@@ -153,17 +153,18 @@ const panelsAndChests: [number, string][] = [
 
 // Classificação inicial do acervo; as fotos poderão ser redistribuídas por categoria.
 const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
-  3894: "Decoração",
+  3894: "Leds",
   3892: "Painel",
   3891: "Painel",
-  3877: "Decoração",
-  3876: "Decoração",
-  3874: "Decoração",
+  3874: "Cenários",
   3872: "Painel",
   3871: "Painel",
   3867: "Cômodas",
   3866: "Painel",
 };
+
+// A foto dos suportes aramados ainda precisa de um recorte fiel das peças.
+const originalBackgroundPhotos = new Set([6336, 6335, 6334, 3876]);
 
 const panelCategoryOverrides: Partial<Record<number, RentalCategory>> = {
   4436: "Cenários",
@@ -196,7 +197,7 @@ export const rentalProducts: RentalProduct[] = [
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ].map((product) =>
-  product.category === "Decoração"
+  originalBackgroundPhotos.has(product.id)
     ? product
     : { ...product, image: product.image.replace("/products/", "/products/white/") },
 );

@@ -14,6 +14,8 @@ from shutil import copy2
 from PIL import Image, ImageDraw, ImageFilter
 from rembg import new_session, remove
 
+from frame_round_panels import GEOMETRIC_PANEL_BOUNDS, cut_round_panel, frame_image
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "public" / "products"
@@ -75,7 +77,10 @@ def prepare_photo(source: Path, destination: Path, session: object) -> None:
         ImageDraw.Draw(white).rectangle((0, 740, 180, original.height), fill="white")
 
     destination.parent.mkdir(parents=True, exist_ok=True)
-    white.convert("RGB").save(destination, "WEBP", quality=88, method=6)
+    result = white.convert("RGB")
+    if source.parent.name == "paineis-redondos":
+        result = frame_image(result)
+    result.save(destination, "WEBP", quality=88, method=6)
 
 
 def main() -> None:
@@ -83,22 +88,26 @@ def main() -> None:
     parser.add_argument("mode", choices=("pilot", "all"))
     parser.add_argument("--model", default="isnet-general-use")
     parser.add_argument("--photo", action="append", help="Photo path relative to public/products (pilot only)")
+    parser.add_argument("--group", help="Process one product folder in all mode")
     args = parser.parse_args()
 
     if args.mode == "pilot":
+        if args.group:
+            parser.error("--group can only be used with all")
         photos = [SOURCE / path for path in (args.photo or PILOT_PHOTOS)]
         output = PILOT_OUTPUT
     else:
         if args.photo:
             parser.error("--photo can only be used with pilot")
         photos = sorted(
-            path for path in SOURCE.glob("*/*.webp")
+            path for path in SOURCE.glob(f"{args.group or '*'}/*.webp")
             if path.parent.name != "decoracoes"
             and path.relative_to(SOURCE).as_posix() not in ORIGINAL_BACKGROUND_PHOTOS
         )
         output = CATALOG_OUTPUT
-        if len(photos) != 120:
-            raise SystemExit(f"Expected 120 catalog photos, found {len(photos)}")
+        expected = 59 if args.group == "paineis-redondos" else 179
+        if len(photos) != expected:
+            raise SystemExit(f"Expected {expected} catalog photos, found {len(photos)}")
 
     print(f"Processing {len(photos)} photos", flush=True)
     sessions = {}
@@ -110,7 +119,16 @@ def main() -> None:
             copy2(source, destination)
             print(f"{index}/{len(photos)} {relative} [already white]", flush=True)
             continue
-        model = (MODEL_OVERRIDES.get(relative.as_posix(), args.model)
+        if relative.parent.name == "paineis-redondos" and int(source.stem[4:]) in GEOMETRIC_PANEL_BOUNDS:
+            with Image.open(source) as loaded:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                cut_round_panel(loaded, GEOMETRIC_PANEL_BOUNDS[int(source.stem[4:])]).save(
+                    destination, "WEBP", quality=88, method=6
+                )
+            print(f"{index}/{len(photos)} {relative} [round panel]", flush=True)
+            continue
+        model = (MODEL_OVERRIDES.get(relative.as_posix(),
+                                     "birefnet-general-lite" if relative.parent.name == "paineis-redondos" else args.model)
                  if args.mode == "all" else args.model)
         if model not in sessions:
             print(f"Loading model {model}", flush=True)

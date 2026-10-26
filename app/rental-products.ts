@@ -83,6 +83,68 @@ const trays: [number, string][] = [
   [7104, "Trio de bandejas metálicas para doces, outra vista"],
 ];
 
+const roundPanels: [number, string][] = [
+  [7201, "Painel redondo de princesa na floresta"],
+  [7202, "Painel redondo de animais da fazenda"],
+  [7203, "Painel redondo de sol sorridente"],
+  [7204, "Painel redondo da Turma da Mônica"],
+  [7205, "Painel redondo de animais no safári"],
+  [7206, "Painel redondo de pintura e lápis coloridos"],
+  [7207, "Painel redondo da Minnie em vermelho"],
+  [7208, "Painel redondo de menina e urso"],
+  [7209, "Painel redondo de carro amarelo"],
+  [7210, "Painel redondo do Pequeno Príncipe"],
+  [7211, "Painel redondo de personagem azul"],
+  [7212, "Painel redondo de heróis coloridos"],
+  [7213, "Painel redondo de esquiletes"],
+  [7214, "Painel redondo de princesa com rosa"],
+  [7215, "Painel redondo de princesa oriental"],
+  [7216, "Painel redondo de princesa e sete anões"],
+  [7217, "Painel redondo de monstrinhos"],
+  [7218, "Painel redondo de personagem azul, outra vista"],
+  [7219, "Painel redondo da Minnie com corações"],
+  [7220, "Painel redondo de personagens de magia"],
+  [7221, "Painel redondo de princesa de cabelos longos"],
+  [7222, "Painel redondo de princesas em tons pastel"],
+  [7223, "Painel redondo de fada e arco-íris"],
+  [7224, "Painel redondo de anjinho com flores"],
+  [7225, "Painel redondo de grupo musical"],
+  [7226, "Painel redondo de pôneis coloridos"],
+  [7227, "Painel redondo de circo infantil"],
+  [7228, "Painel redondo de super-heroína"],
+  [7229, "Painel redondo de equipe de cachorrinhos"],
+  [7230, "Painel redondo de família de cachorrinhos"],
+  [7231, "Painel redondo de aventura submarina"],
+  [7232, "Painel redondo de bebê com traje social"],
+  [7233, "Painel redondo da Turma da Mônica, outra vista"],
+  [7234, "Painel redondo de irmãs no gelo"],
+  [7235, "Painel redondo de princesa sereia"],
+  [7236, "Painel redondo de princesa e fera"],
+  [7237, "Painel redondo de pôr do sol"],
+  [7238, "Painel redondo de ursinhos com balões"],
+  [7239, "Painel redondo de galinha e amigos"],
+  [7240, "Painel redondo de elefantinha"],
+  [7241, "Painel redondo de família encantada"],
+  [7242, "Painel redondo de bebê de traje preto"],
+  [7243, "Painel redondo de pássaros e casinhas"],
+  [7244, "Painel redondo de princesas e castelo"],
+  [7245, "Painel redondo de jardim e gaiolas"],
+  [7246, "Painel redondo de galinha e amigos, outra vista"],
+  [7247, "Painel redondo de princesa de cabelos longos, outra vista"],
+  [7248, "Painel redondo de personagem com tacos"],
+  [7249, "Painel redondo de rede social"],
+  [7250, "Painel redondo de camisa esportiva rosa"],
+  [7251, "Painel redondo de bombeiro"],
+  [7252, "Painel redondo do Pequeno Príncipe com raposa"],
+  [7253, "Painel redondo de grupo musical com arco-íris"],
+  [7254, "Painel redondo de pandinha rosa"],
+  [7255, "Painel redondo da Minnie confeiteira"],
+  [7256, "Painel redondo de família de porquinhos"],
+  [7257, "Painel redondo de pandinha rosa, outra vista"],
+  [7258, "Painel redondo de cachorrinha com flores"],
+  [7259, "Painel redondo de astronauta"],
+];
+
 const tablesAndDecor: [number, string][] = [
   [3916, "Dupla de mesas redondas com tampos de madeira"],
   [3915, "Mesas redondas com estrutura preta"],
@@ -180,11 +242,6 @@ const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
 // A foto dos suportes aramados ainda precisa de um recorte fiel das peças.
 const originalBackgroundPhotos = new Set([3876]);
 
-const panelCategoryOverrides: Partial<Record<number, RentalCategory>> = {
-  4436: "Cenários",
-  4384: "Cenários",
-};
-
 export const rentalProducts: RentalProduct[] = [
   ...dollsAndPlushies.map(([id, name]) => ({
     id,
@@ -204,6 +261,12 @@ export const rentalProducts: RentalProduct[] = [
     category: "Bandejas" as const,
     image: `/products/bandejas/img-${id}.webp`,
   })),
+  ...roundPanels.map(([id, name]) => ({
+    id,
+    name,
+    category: "Painel" as const,
+    image: `/products/paineis-redondos/img-${id}.webp`,
+  })),
   ...tablesAndDecor.map(([id, name]) => ({
     id,
     name,
@@ -213,7 +276,7 @@ export const rentalProducts: RentalProduct[] = [
   ...panelsAndChests.map(([id, name]) => ({
     id,
     name,
-    category: panelCategoryOverrides[id] ?? "Painel",
+    category: "Cenários" as const,
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ].map((product) =>

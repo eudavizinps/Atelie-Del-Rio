@@ -232,6 +232,21 @@ const tablesAndDecor: [number, string][] = [
   [3862, "Trio de mesas aramadas coloridas"],
 ];
 
+const newTables: [number, string][] = [
+  [7401, "Mesa oval de madeira com pés brancos"],
+  [7402, "Mesa retangular de madeira sobre cavaletes"],
+  [7403, "Dupla de mesas de madeira com pés brancos"],
+  [7404, "Mesa oval rústica de madeira"],
+  [7405, "Mesa de madeira com prateleira inferior"],
+  [7406, "Mesa rústica de madeira com gaveta"],
+  [7407, "Mesa rústica de madeira com gaveta, outra vista"],
+  [7408, "Mesa rústica de madeira com gaveta, vista frontal"],
+  [7409, "Mesa retangular de madeira sobre cavaletes, outra vista"],
+  [7410, "Mesa de madeira com prateleira inferior, outra vista"],
+  [7411, "Mesa baixa rústica de madeira"],
+  [7412, "Mesa de madeira com dois bancos redondos"],
+];
+
 const panelsAndChests: [number, string][] = [
   [4439, "Dinossauro e personagens espaciais em painel"],
   [4438, "Dupla de palhaços em painel"],
@@ -340,6 +355,12 @@ export const rentalProducts: RentalProduct[] = [
     name,
     category: tableCategoryOverrides[id] ?? "Mesas",
     image: `/products/mesas-decorativos/img-${id}.webp`,
+  })),
+  ...newTables.map(([id, name]) => ({
+    id,
+    name,
+    category: "Mesas" as const,
+    image: `/products/mesas-novas/img-${id}.webp`,
   })),
   ...panelsAndChests.map(([id, name]) => ({
     id,

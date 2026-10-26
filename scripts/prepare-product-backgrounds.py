@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from shutil import copy2
 
 from PIL import Image, ImageDraw, ImageFilter
 from rembg import new_session, remove
@@ -25,6 +26,11 @@ ORIGINAL_BACKGROUND_PHOTOS = {
     "mesas-decorativos/img-3876.webp",
 }
 
+ALREADY_WHITE_PHOTOS = {
+    "bandejas/img-7101.webp",
+    "bandejas/img-7102.webp",
+}
+
 PILOT_PHOTOS = (
     "mesas-decorativos/img-3916.webp",
     "bonecos-pelucias/img-4334.webp",
@@ -34,6 +40,8 @@ PILOT_PHOTOS = (
 
 # Thin table frames and a few busy storage-room photos need a stronger mask.
 MODEL_OVERRIDES = {
+    "bandejas/img-7103.webp": "birefnet-general-lite",
+    "bandejas/img-7104.webp": "birefnet-general-lite",
     "bonecos-pelucias/img-4250.webp": "u2net",
     "bonecos-pelucias/img-4258.webp": "birefnet-general-lite",
     **{
@@ -89,14 +97,19 @@ def main() -> None:
             and path.relative_to(SOURCE).as_posix() not in ORIGINAL_BACKGROUND_PHOTOS
         )
         output = CATALOG_OUTPUT
-        if len(photos) != 116:
-            raise SystemExit(f"Expected 116 catalog photos, found {len(photos)}")
+        if len(photos) != 120:
+            raise SystemExit(f"Expected 120 catalog photos, found {len(photos)}")
 
     print(f"Processing {len(photos)} photos", flush=True)
     sessions = {}
     for index, source in enumerate(photos, start=1):
         relative = source.relative_to(SOURCE)
         destination = output / relative
+        if relative.as_posix() in ALREADY_WHITE_PHOTOS:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            copy2(source, destination)
+            print(f"{index}/{len(photos)} {relative} [already white]", flush=True)
+            continue
         model = (MODEL_OVERRIDES.get(relative.as_posix(), args.model)
                  if args.mode == "all" else args.model)
         if model not in sessions:

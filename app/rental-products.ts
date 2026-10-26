@@ -76,6 +76,13 @@ const decorations: [number, string][] = [
   [6336, "Decoração infantil com balões coloridos"],
 ];
 
+const trays: [number, string][] = [
+  [7101, "Conjunto de suportes redondos de madeira"],
+  [7102, "Conjunto de bandejas elevadas em cobre e madeira"],
+  [7103, "Trio de bandejas metálicas para doces"],
+  [7104, "Trio de bandejas metálicas para doces, outra vista"],
+];
+
 const tablesAndDecor: [number, string][] = [
   [3916, "Dupla de mesas redondas com tampos de madeira"],
   [3915, "Mesas redondas com estrutura preta"],
@@ -190,6 +197,12 @@ export const rentalProducts: RentalProduct[] = [
     name,
     category: "Decoração" as const,
     image: `/products/decoracoes/img-${id}.webp`,
+  })),
+  ...trays.map(([id, name]) => ({
+    id,
+    name,
+    category: "Bandejas" as const,
+    image: `/products/bandejas/img-${id}.webp`,
   })),
   ...tablesAndDecor.map(([id, name]) => ({
     id,

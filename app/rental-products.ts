@@ -64,9 +64,16 @@ const dollsAndPlushies: [number, string][] = [
 ];
 
 const decorations: [number, string][] = [
-  [6336, "Decoração infantil com balões coloridos"],
-  [6335, "Decoração temática com personagens"],
+  [7001, "Decoração infantil rosa com personagens e balões"],
+  [7002, "Mesa de festa em tons rosé com balões suspensos"],
+  [7003, "Decoração infantil do fundo do mar em tons pastel"],
+  [7004, "Decoração rosa com personagens, balões e luzes"],
+  [7005, "Decoração em tons de rosa com tema marinho"],
+  [7006, "Decoração delicada com carrossel e balões"],
+  [7007, "Decoração infantil com balões vermelhos e verdes"],
   [6334, "Decoração de aniversário com balões e luzes"],
+  [6335, "Decoração temática com personagens"],
+  [6336, "Decoração infantil com balões coloridos"],
 ];
 
 const tablesAndDecor: [number, string][] = [
@@ -164,7 +171,7 @@ const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
 };
 
 // A foto dos suportes aramados ainda precisa de um recorte fiel das peças.
-const originalBackgroundPhotos = new Set([6336, 6335, 6334, 3876]);
+const originalBackgroundPhotos = new Set([3876]);
 
 const panelCategoryOverrides: Partial<Record<number, RentalCategory>> = {
   4436: "Cenários",
@@ -197,7 +204,7 @@ export const rentalProducts: RentalProduct[] = [
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ].map((product) =>
-  originalBackgroundPhotos.has(product.id)
+  product.category === "Decoração" || originalBackgroundPhotos.has(product.id)
     ? product
     : { ...product, image: product.image.replace("/products/", "/products/white/") },
 );

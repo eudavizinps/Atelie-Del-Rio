@@ -19,12 +19,9 @@ SOURCE = ROOT / "public" / "products"
 PILOT_OUTPUT = ROOT / "work" / "white-background-pilot"
 CATALOG_OUTPUT = SOURCE / "white"
 
-# These photos keep the original background; IMG_3876 needs a better source
-# photo because automated cutouts also include the person and other objects.
+# Completed event decorations keep their full scene. IMG_3876 also needs a
+# better source because automated cutouts include a person and other objects.
 ORIGINAL_BACKGROUND_PHOTOS = {
-    "decoracoes/img-6336.webp",
-    "decoracoes/img-6335.webp",
-    "decoracoes/img-6334.webp",
     "mesas-decorativos/img-3876.webp",
 }
 
@@ -88,7 +85,8 @@ def main() -> None:
             parser.error("--photo can only be used with pilot")
         photos = sorted(
             path for path in SOURCE.glob("*/*.webp")
-            if path.relative_to(SOURCE).as_posix() not in ORIGINAL_BACKGROUND_PHOTOS
+            if path.parent.name != "decoracoes"
+            and path.relative_to(SOURCE).as_posix() not in ORIGINAL_BACKGROUND_PHOTOS
         )
         output = CATALOG_OUTPUT
         if len(photos) != 116:

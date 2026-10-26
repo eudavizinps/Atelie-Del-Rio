@@ -31,13 +31,15 @@ test("acervo inicia em Decoração, com as nove abas e sem preços", async () =>
   const productLinks = html.match(/aria-label="Consultar [^"]+ pelo WhatsApp"/g) ?? [];
   const rentalFilters = html.split('class="rental-filters"')[1]?.split('class="rental-count"')[0] ?? "";
 
-  assert.equal(cards.length, 7);
-  assert.equal(productLinks.length, 7);
+  assert.equal(cards.length, 10);
+  assert.equal(productLinks.length, 10);
   assert.match(html, /class="rental-track"/);
   for (const category of ["Decoração", "Bandejas", "Pelúcias &amp; Bonecos", "Painel", "Cômodas", "Mesas", "Leds", "Arranjos", "Cenários"]) {
     assert.match(rentalFilters, new RegExp(category));
   }
   assert.doesNotMatch(rentalFilters, />Todos<|>Todos<!-- -->/);
+  assert.match(html, /img-7001\.webp/);
+  assert.match(html, /img-7007\.webp/);
   assert.match(html, /img-6336\.webp/);
   assert.match(html, /img-6335\.webp/);
   assert.match(html, /img-6334\.webp/);

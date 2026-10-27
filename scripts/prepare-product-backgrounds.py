@@ -22,12 +22,6 @@ SOURCE = ROOT / "public" / "products"
 PILOT_OUTPUT = ROOT / "work" / "white-background-pilot"
 CATALOG_OUTPUT = SOURCE / "white"
 
-# Completed event decorations keep their full scene. IMG_3876 also needs a
-# better source because automated cutouts include a person and other objects.
-ORIGINAL_BACKGROUND_PHOTOS = {
-    "mesas-decorativos/img-3876.webp",
-}
-
 ALREADY_WHITE_PHOTOS = {
     "bandejas/img-7101.webp",
     "bandejas/img-7102.webp",
@@ -102,7 +96,6 @@ def main() -> None:
         photos = sorted(
             path for path in SOURCE.glob(f"{args.group or '*'}/*.webp")
             if path.parent.name != "decoracoes"
-            and path.relative_to(SOURCE).as_posix() not in ORIGINAL_BACKGROUND_PHOTOS
         )
         output = CATALOG_OUTPUT
         expected = 59 if args.group == "paineis-redondos" else 179

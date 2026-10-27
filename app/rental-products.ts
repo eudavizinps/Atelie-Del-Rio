@@ -222,7 +222,6 @@ const tablesAndDecor: [number, string][] = [
   [3880, "Mesas orgânicas em tons pastel"],
   [3879, "Composição de mesas orgânicas e arco"],
   [3877, "Conjunto de mesas brancas com tampos de madeira"],
-  [3876, "Suportes aramados decorativos"],
   [3874, "Cubos decorativos em formato de dados"],
   [3872, "Painel temático esportivo"],
   [3871, "Módulos ripados em tons pastel"],
@@ -245,6 +244,16 @@ const newTables: [number, string][] = [
   [7410, "Mesa de madeira com prateleira inferior, outra vista"],
   [7411, "Mesa baixa rústica de madeira"],
   [7412, "Mesa de madeira com dois bancos redondos"],
+];
+
+const ledSigns: [number, string][] = [
+  [7501, "Letreiro de LED Happy Birthday"],
+  [7502, "Letreiro de LED Good!"],
+  [7503, "Letreiro de LED Love"],
+  [7504, "Letreiro de LED Celebre a vida"],
+  [7505, "Letreiro de LED Stop thinking start drinking"],
+  [7506, "Letreiro de LED All you need is love"],
+  [7507, "Setas e chama de LED colorido"],
 ];
 
 const panelsAndChests: [number, string][] = [
@@ -316,9 +325,6 @@ const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
   3866: "Painel",
 };
 
-// A foto dos suportes aramados ainda precisa de um recorte fiel das peças.
-const originalBackgroundPhotos = new Set([3876]);
-
 export const rentalProducts: RentalProduct[] = [
   ...dollsAndPlushies.map(([id, name]) => ({
     id,
@@ -362,6 +368,12 @@ export const rentalProducts: RentalProduct[] = [
     category: "Mesas" as const,
     image: `/products/mesas-novas/img-${id}.webp`,
   })),
+  ...ledSigns.map(([id, name]) => ({
+    id,
+    name,
+    category: "Leds" as const,
+    image: `/products/leds/img-${id}.webp`,
+  })),
   ...panelsAndChests.map(([id, name]) => ({
     id,
     name,
@@ -369,7 +381,7 @@ export const rentalProducts: RentalProduct[] = [
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ].map((product) =>
-  product.category === "Decoração" || originalBackgroundPhotos.has(product.id)
+  product.category === "Decoração"
     ? product
     : { ...product, image: product.image.replace("/products/", "/products/white/") },
 );

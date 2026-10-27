@@ -6,6 +6,7 @@ export const rentalCategories = [
   "Painel",
   "Cômodas",
   "Mesas",
+  "Kits Festas de mesa",
   "Leds",
   "Arranjos",
   "Cenários",
@@ -256,6 +257,40 @@ const ledSigns: [number, string][] = [
   [7507, "Setas e chama de LED colorido"],
 ];
 
+const tablePartyKits: [number, string, string][] = [
+  [7601, "PHOTO-2026-10-20-22-39-32(1).jpg", "Kit de festa das princesas, vista completa"],
+  [7602, "PHOTO-2026-10-20-22-39-32(2).jpg", "Kit de festa do Stitch tropical, detalhe"],
+  [7603, "PHOTO-2026-10-20-22-39-32.jpg", "Kit de festa safari, detalhe"],
+  [7604, "PHOTO-2026-10-20-22-39-33(1).jpg", "Kit de festa para casamento, vista completa"],
+  [7605, "PHOTO-2026-10-20-22-39-33(2).jpg", "Kit de festa da Gabby, detalhe"],
+  [7606, "PHOTO-2026-10-20-22-39-33(3).jpg", "Kit de festa dos personagens Looney Tunes, detalhe"],
+  [7607, "PHOTO-2026-10-20-22-39-33.jpg", "Kit de festa da sereia, detalhe"],
+  [7608, "PHOTO-2026-10-20-22-39-34(1).jpg", "Kit de festa da fazendinha, detalhe"],
+  [7609, "PHOTO-2026-10-20-22-39-34(2).jpg", "Kit de festa de futebol, vista completa"],
+  [7610, "PHOTO-2026-10-20-22-39-34.jpg", "Kit de festa dos ursinhos, detalhe"],
+  [7611, "PHOTO-2026-10-20-22-39-35(1).jpg", "Kit de festa da Minnie, detalhe"],
+  [7612, "PHOTO-2026-10-20-22-39-35(2).jpg", "Kit de festa dos ursinhos, vista completa"],
+  [7613, "PHOTO-2026-10-20-22-39-35(3).jpg", "Kit de festa da Moana, detalhe"],
+  [7614, "PHOTO-2026-10-20-22-39-35.jpg", "Kit de festa de bichinhos, detalhe"],
+  [7615, "PHOTO-2026-10-20-22-39-36(1).jpg", "Kit de festa de futebol, detalhe"],
+  [7616, "PHOTO-2026-10-20-22-39-36(2).jpg", "Kit de festa da Gabby, outra vista"],
+  [7617, "PHOTO-2026-10-20-22-39-36(3).jpg", "Kit de festa de bichinhos, vista completa"],
+  [7618, "PHOTO-2026-10-20-22-39-36(4).jpg", "Kit de festa da Moana, vista completa"],
+  [7619, "PHOTO-2026-10-20-22-39-36.jpg", "Kit de festa para casamento, detalhe"],
+  [7620, "PHOTO-2026-10-20-22-39-37(1).jpg", "Kit de festa das princesas, detalhe"],
+  [7621, "PHOTO-2026-10-20-22-39-37(2).jpg", "Kit de festa do Sonic, vista completa"],
+  [7622, "PHOTO-2026-10-20-22-39-37(3).jpg", "Kit de festa do jardim encantado, detalhe"],
+  [7623, "PHOTO-2026-10-20-22-39-37.jpg", "Kit de festa do Stitch tropical, vista completa"],
+  [7624, "PHOTO-2026-10-20-22-39-38(1).jpg", "Kit de festa da Minnie, vista completa"],
+  [7625, "PHOTO-2026-10-20-22-39-38(2).jpg", "Kit de festa do jardim encantado, vista completa"],
+  [7626, "PHOTO-2026-10-20-22-39-38(3).jpg", "Kit de festa da sereia, vista completa"],
+  [7627, "PHOTO-2026-10-20-22-39-38.jpg", "Kit de festa safari, vista completa"],
+  [7628, "PHOTO-2026-10-20-22-39-39(1).jpg", "Kit de festa de Lilo e Stitch, detalhe"],
+  [7629, "PHOTO-2026-10-20-22-39-39(2).jpg", "Kit de festa dos personagens Looney Tunes, vista completa"],
+  [7630, "PHOTO-2026-10-20-22-39-39(3).jpg", "Kit de festa de Lilo e Stitch, outra vista"],
+  [7631, "PHOTO-2026-10-20-22-39-39.jpg", "Kit de festa da fazendinha, vista completa"],
+];
+
 const panelsAndChests: [number, string][] = [
   [4439, "Dinossauro e personagens espaciais em painel"],
   [4438, "Dupla de palhaços em painel"],
@@ -374,6 +409,12 @@ export const rentalProducts: RentalProduct[] = [
     category: "Leds" as const,
     image: `/products/leds/img-${id}.webp`,
   })),
+  ...tablePartyKits.map(([id, filename, name]) => ({
+    id,
+    name,
+    category: "Kits Festas de mesa" as const,
+    image: `/products/kits-festas-de-mesa/${filename}`,
+  })),
   ...panelsAndChests.map(([id, name]) => ({
     id,
     name,
@@ -381,7 +422,7 @@ export const rentalProducts: RentalProduct[] = [
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ].map((product) =>
-  product.category === "Decoração"
+  product.category === "Decoração" || product.category === "Kits Festas de mesa"
     ? product
     : { ...product, image: product.image.replace("/products/", "/products/white/") },
 );

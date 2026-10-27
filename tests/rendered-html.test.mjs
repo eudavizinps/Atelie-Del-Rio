@@ -25,7 +25,7 @@ test("renderiza o site completo do Ateliê Del Rio", async () => {
   assert.match(html, /Ateliê Del Rio/);
 });
 
-test("acervo inicia em Decoração, com as dez abas e sem preços", async () => {
+test("acervo inicia em Decoração, com as onze abas e sem preços", async () => {
   const html = await (await render()).text();
   const cards = html.match(/class="rental-card"/g) ?? [];
   const productLinks = html.match(/aria-label="Consultar [^"]+ pelo WhatsApp"/g) ?? [];
@@ -34,7 +34,7 @@ test("acervo inicia em Decoração, com as dez abas e sem preços", async () => 
   assert.equal(cards.length, 10);
   assert.equal(productLinks.length, 10);
   assert.match(html, /class="rental-track"/);
-  for (const category of ["Decoração", "Bandejas", "Acessórios", "Pelúcias &amp; Bonecos", "Painel", "Cômodas", "Mesas", "Leds", "Arranjos", "Cenários"]) {
+  for (const category of ["Decoração", "Bandejas", "Acessórios", "Pelúcias &amp; Bonecos", "Painel", "Cômodas", "Mesas", "Kits Festas de mesa", "Leds", "Arranjos", "Cenários"]) {
     assert.match(rentalFilters, new RegExp(category));
   }
   assert.doesNotMatch(rentalFilters, />Todos<|>Todos<!-- -->/);

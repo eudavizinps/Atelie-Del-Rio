@@ -1,15 +1,15 @@
 export const rentalCategories = [
-  "Decoração",
-  "Bandejas",
   "Acessórios",
-  "Pelúcias & Bonecos",
-  "Painel",
+  "Arranjos",
+  "Bandejas",
+  "Cenários",
   "Cômodas",
-  "Mesas",
+  "Decoração",
   "Kits Festas de mesa",
   "Leds",
-  "Arranjos",
-  "Cenários",
+  "Mesas",
+  "Painel",
+  "Pelúcias & Bonecos",
 ] as const;
 
 export type RentalCategory = (typeof rentalCategories)[number];

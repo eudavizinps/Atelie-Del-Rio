@@ -25,7 +25,7 @@ test("renderiza o site completo do Ateliê Del Rio", async () => {
   assert.match(html, /Ateliê Del Rio/);
 });
 
-test("acervo inicia em Decoração, com as onze abas e sem preços", async () => {
+test("acervo inicia em Decoração, com as onze abas em ordem alfabética e sem preços", async () => {
   const html = await (await render()).text();
   const cards = html.match(/class="rental-card"/g) ?? [];
   const productLinks = html.match(/aria-label="Consultar [^"]+ pelo WhatsApp"/g) ?? [];
@@ -34,8 +34,11 @@ test("acervo inicia em Decoração, com as onze abas e sem preços", async () =>
   assert.equal(cards.length, 10);
   assert.equal(productLinks.length, 10);
   assert.match(html, /class="rental-track"/);
-  for (const category of ["Decoração", "Bandejas", "Acessórios", "Pelúcias &amp; Bonecos", "Painel", "Cômodas", "Mesas", "Kits Festas de mesa", "Leds", "Arranjos", "Cenários"]) {
-    assert.match(rentalFilters, new RegExp(category));
+  let previousCategoryPosition = -1;
+  for (const category of ["Acessórios", "Arranjos", "Bandejas", "Cenários", "Cômodas", "Decoração", "Kits Festas de mesa", "Leds", "Mesas", "Painel", "Pelúcias &amp; Bonecos"]) {
+    const categoryPosition = rentalFilters.indexOf(category);
+    assert.ok(categoryPosition > previousCategoryPosition, `${category} deve aparecer na ordem alfabética`);
+    previousCategoryPosition = categoryPosition;
   }
   assert.doesNotMatch(rentalFilters, />Todos<|>Todos<!-- -->/);
   assert.match(html, /img-7001\.webp/);

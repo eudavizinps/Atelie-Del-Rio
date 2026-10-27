@@ -118,7 +118,7 @@ function advanceRentalTrack(track: HTMLDivElement, direction: -1 | 1) {
 
 export default function Home() {
   const [portfolioFilter, setPortfolioFilter] = useState("Todos");
-  const [rentalFilter, setRentalFilter] = useState<RentalCategory>(rentalCategories[0]);
+  const [rentalFilter, setRentalFilter] = useState<RentalCategory>("Decoração");
   const [rentalHasOverflow, setRentalHasOverflow] = useState(false);
   const [rentalInteraction, setRentalInteraction] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);

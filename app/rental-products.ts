@@ -78,6 +78,13 @@ const decorations: [number, string][] = [
   [6336, "Decoração infantil com balões coloridos"],
 ];
 
+const arrangements: [number, string][] = [
+  [7701, "Dupla de arranjos florais brancos"],
+  [7702, "Dupla de arranjos florais rosas"],
+  [7703, "Dupla de arranjos florais azul-turquesa"],
+  [7704, "Dupla de arranjos florais azuis"],
+];
+
 const trays: [number, string][] = [
   [7101, "Conjunto de suportes redondos de madeira"],
   [7102, "Conjunto de bandejas elevadas em cobre e madeira"],
@@ -373,6 +380,12 @@ export const rentalProducts: RentalProduct[] = [
     category: "Decoração" as const,
     image: `/products/decoracoes/img-${id}.webp`,
   })),
+  ...arrangements.map(([id, name]) => ({
+    id,
+    name,
+    category: "Arranjos" as const,
+    image: `/products/white/arranjos/img-${id}.png`,
+  })),
   ...trays.map(([id, name]) => ({
     id,
     name,
@@ -422,7 +435,7 @@ export const rentalProducts: RentalProduct[] = [
     image: `/products/paineis-comodas/img-${id}.webp`,
   })),
 ].map((product) =>
-  product.category === "Decoração" || product.category === "Kits Festas de mesa"
+  product.category === "Decoração" || product.category === "Kits Festas de mesa" || product.category === "Arranjos"
     ? product
     : { ...product, image: product.image.replace("/products/", "/products/white/") },
 );

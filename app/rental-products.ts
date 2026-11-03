@@ -357,7 +357,7 @@ const panelsAndChests: [number, string][] = [
 
 // Classificação inicial do acervo; as fotos poderão ser redistribuídas por categoria.
 const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
-  3894: "Leds",
+  3894: "Cenários",
   3892: "Painel",
   3891: "Painel",
   3874: "Cenários",

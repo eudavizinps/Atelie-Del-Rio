@@ -228,7 +228,7 @@ const tablesAndDecor: [number, string][] = [
   [3884, "Mesas metálicas com tampos de madeira"],
   [3882, "Conjunto de mesas metálicas douradas"],
   [3880, "Mesas orgânicas em tons pastel"],
-  [3879, "Composição de mesas orgânicas e arco"],
+  [3879, "Composição de três mesas orgânicas"],
   [3877, "Conjunto de mesas brancas com tampos de madeira"],
   [3874, "Cubos decorativos em formato de dados"],
   [3872, "Painel temático esportivo"],

@@ -25,5 +25,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR"><head><link rel="icon" href="/favicon.ico" sizes="any" /><link rel="icon" href="/favicon.png" type="image/png" sizes="256x256" /></head><body>{children}</body></html>;
+  return <html lang="pt-BR"><head><link rel="icon" href="/favicon.ico?v=2" sizes="any" /><link rel="icon" href="/favicon.png?v=2" type="image/png" sizes="256x256" /></head><body>{children}</body></html>;
 }

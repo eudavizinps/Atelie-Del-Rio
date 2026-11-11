@@ -34,8 +34,8 @@ html = html
   .replaceAll('src="/logo-original.jpeg"', 'src="./assets/logo-original.jpeg"')
   .replaceAll('src="/products/', 'src="./assets/products/')
   .replaceAll('href="/logo-original.jpeg"', 'href="./assets/logo-original.jpeg"')
-  .replaceAll('href="/favicon.png"', 'href="./assets/favicon.png"')
-  .replaceAll('href="/favicon.ico"', 'href="./favicon.ico"')
+  .replaceAll('href="/favicon.png?v=2"', 'href="./assets/favicon.png?v=2"')
+  .replaceAll('href="/favicon.ico?v=2"', 'href="./favicon.ico?v=2"')
   .replace(
     "</head>",
     '<title>Ateliê Del Rio | Decorações, Locações &amp; Buffet</title><meta name="description" content="Eventos únicos com decoração autoral, locações selecionadas e buffet memorável."><meta property="og:title" content="Ateliê Del Rio"><meta property="og:description" content="Momentos inesquecíveis começam nos detalhes."><meta property="og:image" content="./assets/og.png"><meta name="theme-color" content="#3a0f19"><link rel="stylesheet" href="./style.css"><meta name="application-name" content="Ateliê Del Rio"></head>',

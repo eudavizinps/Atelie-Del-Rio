@@ -495,7 +495,10 @@ export default function Home() {
           <div data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}><h3>Serviços</h3><span>Decoração de eventos</span><span>Locação de peças</span><span>Buffet</span><span>Assessoria completa</span><span>Eventos corporativos</span><span>Mini weddings</span></div>
           <div data-reveal style={{ "--reveal-delay": "210ms" } as CSSProperties}><h3>Contato</h3><a href={`tel:+${whatsappNumber}`}>☎ &nbsp;(21) 98874-2550</a><a href="mailto:contato@ateliedelrio.com.br">✉ &nbsp;contato@ateliedelrio.com.br</a><span>⌖ &nbsp;Rua Franz Listz, 218 - Jardim América, RJ</span><span>◷ &nbsp;Atendimento: Seg a Sex, 9h às 18h</span></div>
         </div>
-        <div className="site-shell footer__bottom">© 2026 Ateliê Del Rio. Todos os direitos reservados.</div>
+        <div className="site-shell footer__bottom">
+          <span>© 2026 Ateliê Del Rio. Todos os direitos reservados.</span>
+          <a href="https://gcltechnology.com.br">Desenvolvido por GCL Technology.</a>
+        </div>
       </footer>
     </main>
   );

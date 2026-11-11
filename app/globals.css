@@ -192,7 +192,9 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
 .footer a, .footer span, .footer p { margin-bottom: 4px; color: #eed6d7; font-size: 12px; }
 .footer__brand p { max-width: 240px; margin-top: 12px; }
 .footer__socials a { width: 32px; height: 32px; margin: 0; display: inline-flex; align-items: center; justify-content: center; background: #6a2d37; border-radius: 50%; color: #fff; }
-.footer__bottom { margin-top: 20px; padding-top: 13px; border-top: 1px solid rgba(255,255,255,.08); text-align: center; color: #cfafb3; font-size: 11px; }
+.footer__bottom { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 8px; margin-top: 20px; padding-top: 13px; border-top: 1px solid rgba(255,255,255,.08); text-align: center; color: #cfafb3; font-size: 11px; }
+.footer__bottom span, .footer__bottom a { margin: 0; color: inherit; font-size: inherit; }
+.footer__bottom a { text-decoration: underline; text-underline-offset: 2px; }
 
 /* Motion layer: entrance, hover and carousel transitions. */
 @keyframes reveal-rise {

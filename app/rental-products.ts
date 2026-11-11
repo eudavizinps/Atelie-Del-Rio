@@ -426,7 +426,7 @@ export const rentalProducts: RentalProduct[] = [
     id,
     name,
     category: "Kits Festas de mesa" as const,
-    image: `/products/kits-festas-de-mesa/${filename}`,
+    image: `/products/white/kits-festas-de-mesa/${filename.replace(/\.jpg$/i, ".webp")}`,
   })),
   ...panelsAndChests.map(([id, name]) => ({
     id,

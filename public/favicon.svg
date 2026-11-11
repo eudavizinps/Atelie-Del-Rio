@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="13" fill="#fff7f7"/>
-  <path d="M13 12h20v40H13a9 9 0 0 1-9-9V21a9 9 0 0 1 9-9Z" fill="#f9b8bd"/>
-  <path d="M31 12h20a9 9 0 0 1 9 9v22a9 9 0 0 1-9 9H31V12Z" fill="#f4a6af"/>
-  <path d="M31 12v40" stroke="#fff7f7" stroke-width="2" opacity=".75"/>
-  <text x="32" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="29" letter-spacing="-4" fill="#3a121c">DR</text>
-</svg>

@@ -11,7 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Ateliê Del Rio | Decorações, Locações & Buffet",
     description: "Eventos únicos com decoração autoral, locações selecionadas e buffet memorável no Rio de Janeiro.",
-    icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
       title: "Ateliê Del Rio | Decorações, Locações & Buffet",
       description: "Momentos inesquecíveis começam nos detalhes.",
@@ -26,5 +25,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR"><body>{children}</body></html>;
+  return <html lang="pt-BR"><head><link rel="icon" href="/favicon.ico" sizes="any" /><link rel="icon" href="/favicon.png" type="image/png" sizes="256x256" /></head><body>{children}</body></html>;
 }

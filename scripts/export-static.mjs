@@ -34,10 +34,11 @@ html = html
   .replaceAll('src="/logo-original.jpeg"', 'src="./assets/logo-original.jpeg"')
   .replaceAll('src="/products/', 'src="./assets/products/')
   .replaceAll('href="/logo-original.jpeg"', 'href="./assets/logo-original.jpeg"')
-  .replaceAll('href="/favicon.svg"', 'href="./assets/favicon.svg"')
+  .replaceAll('href="/favicon.png"', 'href="./assets/favicon.png"')
+  .replaceAll('href="/favicon.ico"', 'href="./favicon.ico"')
   .replace(
     "</head>",
-    '<title>Ateliê Del Rio | Decorações, Locações &amp; Buffet</title><meta name="description" content="Eventos únicos com decoração autoral, locações selecionadas e buffet memorável."><meta property="og:title" content="Ateliê Del Rio"><meta property="og:description" content="Momentos inesquecíveis começam nos detalhes."><meta property="og:image" content="./assets/og.png"><meta name="theme-color" content="#3a0f19"><link rel="icon" href="./assets/favicon.svg"><link rel="stylesheet" href="./style.css"><meta name="application-name" content="Ateliê Del Rio"></head>',
+    '<title>Ateliê Del Rio | Decorações, Locações &amp; Buffet</title><meta name="description" content="Eventos únicos com decoração autoral, locações selecionadas e buffet memorável."><meta property="og:title" content="Ateliê Del Rio"><meta property="og:description" content="Momentos inesquecíveis começam nos detalhes."><meta property="og:image" content="./assets/og.png"><meta name="theme-color" content="#3a0f19"><link rel="stylesheet" href="./style.css"><meta name="application-name" content="Ateliê Del Rio"></head>',
   )
   .replace(
     "</body>",
@@ -77,7 +78,8 @@ await Promise.all([
   copyFile(path.join(projectRoot, "public/prototype.png"), path.join(assetsRoot, "prototype.png")),
   copyFile(path.join(projectRoot, "public/logo-original.jpeg"), path.join(assetsRoot, "logo-original.jpeg")),
   copyFile(path.join(projectRoot, "public/og.png"), path.join(assetsRoot, "og.png")),
-  copyFile(path.join(projectRoot, "public/favicon.svg"), path.join(assetsRoot, "favicon.svg")),
+  copyFile(path.join(projectRoot, "public/favicon.png"), path.join(assetsRoot, "favicon.png")),
+  copyFile(path.join(projectRoot, "public/favicon.ico"), path.join(outputRoot, "favicon.ico")),
   cp(path.join(projectRoot, "public/products"), path.join(assetsRoot, "products"), { recursive: true }),
 ]);
 await writeFile(path.join(outputRoot, "style.css"), css, "utf8");

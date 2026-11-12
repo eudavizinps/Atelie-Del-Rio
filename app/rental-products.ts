@@ -210,8 +210,6 @@ const roundPanels: [number, string][] = [
 ];
 
 const tablesAndDecor: [number, string][] = [
-  [3916, "Dupla de mesas redondas com tampos de madeira"],
-  [3915, "Mesas redondas com estrutura preta"],
   [3913, "Mesas redondas rústicas"],
   [3894, "Módulo decorativo com aro de LED"],
   [3892, "Painel decorativo em arcos coloridos"],

@@ -89,7 +89,6 @@ const trays: [number, string][] = [
   [7101, "Conjunto de suportes redondos de madeira"],
   [7102, "Conjunto de bandejas elevadas em cobre e madeira"],
   [7103, "Trio de bandejas metálicas para doces"],
-  [7104, "Trio de bandejas metálicas para doces, outra vista"],
 ];
 
 const accessories: [number, string][] = [

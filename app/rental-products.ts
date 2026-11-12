@@ -359,7 +359,7 @@ const tableCategoryOverrides: Partial<Record<number, RentalCategory>> = {
   3894: "Cômodas",
   3892: "Painel",
   3891: "Painel",
-  3874: "Cômodas",
+  3874: "Acessórios",
   3872: "Painel",
   3871: "Painel",
   3867: "Cômodas",

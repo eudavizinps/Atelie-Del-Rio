@@ -153,7 +153,6 @@ const accessories: [number, string][] = [
 ];
 
 const roundPanels: [number, string][] = [
-  [7201, "Painel redondo de princesa na floresta"],
   [7202, "Painel redondo de animais da fazenda"],
   [7203, "Painel redondo de sol sorridente"],
   [7204, "Painel redondo da Turma da Mônica"],

@@ -223,8 +223,6 @@ const tablesAndDecor: [number, string][] = [
   [3871, "Módulos ripados em tons pastel"],
   [3867, "Cômoda decorativa cor-de-rosa"],
   [3866, "Painel decorativo em formato de jipe"],
-  [3863, "Mesas aramadas com tampos coloridos"],
-  [3862, "Trio de mesas aramadas coloridas"],
 ];
 
 const newTables: [number, string][] = [
@@ -384,6 +382,12 @@ export const rentalProducts: RentalProduct[] = [
     category: "Painel" as const,
     image: `/products/paineis-redondos/img-${id}.webp`,
   })),
+  {
+    id: 7260,
+    name: "Painel de madeira ripada em mosaico",
+    category: "Painel",
+    image: "/products/paineis/img-7260.webp",
+  },
   ...tablesAndDecor.map(([id, name]) => ({
     id,
     name,

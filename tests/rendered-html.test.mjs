@@ -25,15 +25,16 @@ test("renderiza o site completo do Ateliê Del Rio", async () => {
   assert.match(html, /Ateliê Del Rio/);
 });
 
-test("acervo inicia em Decoração, com as onze abas em ordem alfabética e sem preços", async () => {
+test("acervo inicia em Acessórios, com as onze abas em ordem alfabética e sem preços", async () => {
   const html = await (await render()).text();
   const cards = html.match(/class="rental-card"/g) ?? [];
   const productLinks = html.match(/aria-label="Consultar [^"]+ pelo WhatsApp"/g) ?? [];
   const rentalFilters = html.split('class="rental-filters"')[1]?.split('class="rental-count"')[0] ?? "";
 
-  assert.equal(cards.length, 10);
-  assert.equal(productLinks.length, 10);
+  assert.equal(cards.length, 59);
+  assert.equal(productLinks.length, 59);
   assert.match(html, /class="rental-track"/);
+  assert.match(rentalFilters, /class="active"[^>]*aria-pressed="true"[^>]*>Acessórios<\/button>/);
   let previousCategoryPosition = -1;
   for (const category of ["Acessórios", "Arranjos", "Bandejas", "Cenários", "Cômodas", "Decoração", "Kits Festas de mesa", "Leds", "Mesas", "Painel", "Pelúcias &amp; Bonecos"]) {
     const categoryPosition = rentalFilters.indexOf(category);
@@ -41,12 +42,9 @@ test("acervo inicia em Decoração, com as onze abas em ordem alfabética e sem 
     previousCategoryPosition = categoryPosition;
   }
   assert.doesNotMatch(rentalFilters, />Todos<|>Todos<!-- -->/);
-  assert.match(html, /img-7001\.webp/);
-  assert.match(html, /img-7007\.webp/);
-  assert.match(html, /img-6336\.webp/);
-  assert.match(html, /img-6335\.webp/);
-  assert.match(html, /img-6334\.webp/);
-  assert.match(html, /Decoração temática com personagens/);
+  assert.match(html, /\/products\/white\/acessorios\/img-7332\.webp/);
+  assert.match(html, /\/products\/white\/acessorios\/img-7338\.webp/);
+  assert.match(html, /\/products\/white\/acessorios\/img-7346\.webp/);
   assert.match(html, /Consulte a disponibilidade/);
   assert.doesNotMatch(html, /Ref\.\s*(?:<!-- -->)?4334|referência 4334|ref\.%204334/i);
   assert.match(html, /wa\.me\/5521988742550\?text=/);
